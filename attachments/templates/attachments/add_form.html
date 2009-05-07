@@ -1,0 +1,8 @@
+{% load i18n %}
+<form method="post" enctype="multipart/form-data" action="{{ form_url }}" class="add-attachment">
+    <input type="hidden" name="next" value="{{ next }}"/>
+    {{ form.as_p }}
+    <p class="submit">
+        <input type="submit" value="{% trans "Add attachment" %}"/>
+    </p>
+</form>
