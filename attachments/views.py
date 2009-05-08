@@ -19,13 +19,12 @@ def add_url_for_obj(obj):
 def add_attachment(request, app_label, module_name, pk,
                    template_name='attachments/add.html', extra_context={}):
 
-    # TODO: check for proper applabel/modelname
+    next = request.POST.get('next', '/')
     model = get_model(app_label, module_name)
+    if model is None:
+        return HttpResponseRedirect(next)
     obj = get_object_or_404(model, pk=pk)
-
     form = AttachmentForm(request.POST, request.FILES)
-    # TODO: check for valid next attribute
-    next = request.POST.get('next')
 
     if form.is_valid():
         form.save(request, obj)
