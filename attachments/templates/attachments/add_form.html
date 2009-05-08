@@ -1,4 +1,5 @@
 {% load i18n %}
+{% if form %}
 <form method="post" enctype="multipart/form-data" action="{{ form_url }}" class="add-attachment">
     <input type="hidden" name="next" value="{{ next }}"/>
     {{ form.as_p }}
@@ -6,3 +7,4 @@
         <input type="submit" value="{% trans "Add attachment" %}"/>
     </p>
 </form>
+{% endif %}
