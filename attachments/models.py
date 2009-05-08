@@ -33,7 +33,7 @@ class Attachment(TimeStampedModel):
     class Meta:
         ordering = ['-created']
         permissions = (
-            ('delete_foreign_attachments', _('Can delete foreign attachments'))
+            ('delete_foreign_attachments', 'Can delete foreign attachments'),
         )
 
     def __unicode__(self):
