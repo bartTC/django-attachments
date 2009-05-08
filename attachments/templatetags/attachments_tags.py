@@ -11,11 +11,16 @@ def attachment_form(context, obj):
     """
     Renders a "upload attachment" form
     """
-    return {
-        'form': AttachmentForm(),
-        'form_url': add_url_for_obj(obj),
-        'next': context['request'].build_absolute_uri(),
-    }
+    if context['request'].user.is_authenticated():
+        return {
+            'form': AttachmentForm(),
+            'form_url': add_url_for_obj(obj),
+            'next': context['request'].build_absolute_uri(),
+        }
+    else:
+        return {
+            'form': None,
+        }
 
 @register.inclusion_tag('attachments/delete_link.html', takes_context=True)
 def attachment_delete_link(context, attachment):
@@ -24,7 +29,7 @@ def attachment_delete_link(context, attachment):
     no content if the request-user has no permission to delete foreign
     attachments.
     """
-    if context['request'].has_perm('delete_foreign_attachments') \
+    if context['request'].user.has_perm('delete_foreign_attachments') \
        or context['request'].user == attachment.creator:
         return {
             'next': context['request'].build_absolute_uri(),
