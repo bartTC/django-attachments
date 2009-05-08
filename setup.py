@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-attachments',
-    version='0.1',
+    version='0.2',
     description='A generic Django application to attach Files (Attachments) to any model',
     author='Martin Mahner',
     author_email='martin@mahner.org',
