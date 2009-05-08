@@ -24,8 +24,8 @@ def attachment_delete_link(context, attachment):
     no content if the request-user has no permission to delete foreign
     attachments.
     """
-    if context['request'].user == attachment.creator or \
-       context['request'].has_perm('delete_foreign_attachments'):
+    if context['request'].has_perm('delete_foreign_attachments') \
+       or context['request'].user == attachment.creator:
         return {
             'next': context['request'].build_absolute_uri(),
             'delete_url': reverse('delete_attachment', kwargs={'attachment_pk': attachment.pk})
