@@ -53,7 +53,10 @@ class AttachmentsForObjectNode(Node):
 
     def render(self, context):
         obj = self.resolve(self.obj, context)
-        var_name = self.resolve(self.var_name, context)
+        if self.var_name:
+            var_name = self.resolve(self.var_name, context)
+        else:
+            var_name = 'attachments'
         context[var_name] = Attachment.objects.attachments_for_object(obj)
         return ''
 
@@ -83,6 +86,6 @@ def get_attachments_for(parser, token):
     bits = token.contents.split()
     args = {
         'obj': next_bit_for(bits, 'get_attachments_for'),
-        'var_name': next_bit_for(bits, 'as', 'attachments'),
+        'var_name': next_bit_for(bits, 'as'),
     }
     return AttachmentsForObjectNode(**args)

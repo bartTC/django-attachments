@@ -43,7 +43,7 @@ for your model objects in your frontend.
    list is stored in the template context. The default context variable name is
    ``attachments`` Example::
    
-   {% get_attachments entry as "attachments_list" %}
+   {% get_attachments_for entry as "attachments_list" %}
 
 2. **``attachment_form``**: Renders a upload form to add attachments for the given
    model instance. Example::
@@ -65,10 +65,12 @@ for your model objects in your frontend.
 
 Quick Example:
 ==============
+
 ::
+    
     {% load attachments_tags %}
     {% get_attachments_for entry as "my_entry_attachments" %}
-
+    
     {% if my_entry_attachments %}
     <ul>
     {% for attachment in my_entry_attachments %}
