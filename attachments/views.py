@@ -5,6 +5,7 @@ from django.db.models.loading import get_model
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.template.context import RequestContext
+from django.contrib.auth.decorators import login_required
 from attachments.models import Attachment
 from attachments.forms import AttachmentForm
 
@@ -16,6 +17,7 @@ def add_url_for_obj(obj):
                     })
 
 @require_POST
+@login_required
 def add_attachment(request, app_label, module_name, pk,
                    template_name='attachments/add.html', extra_context={}):
 
@@ -40,6 +42,7 @@ def add_attachment(request, app_label, module_name, pk,
         return render_to_response(template_name, template_context,
                                   RequestContext(request))
 
+@login_required
 def delete_attachment(request, attachment_pk):
     g = get_object_or_404(Attachment, pk=attachment_pk)
     if request.user.has_perm('delete_foreign_attachments') \
