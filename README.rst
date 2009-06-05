@@ -15,7 +15,7 @@ Installation:
 
 3. Add ``'django.core.context_processors.request'`` to your ``TEMPLATE_CONTEXT_PROCESSORS``
    in your settings.py. If this setting does not exist, simply add the following
-   snippet at the end of your settings.py.
+   snippet at the end of your settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         'django.core.context_processors.auth',
@@ -50,7 +50,7 @@ Simply add ``AttachmentInlines`` to the admin options of your model. Example::
 In your frontend templates:
 ---------------------------
 
-First of all, load the attachments_tags in every template you want to use::
+First of all, load the attachments_tags in every template you want to use it::
 
     {% load attachments_tags %}
     
