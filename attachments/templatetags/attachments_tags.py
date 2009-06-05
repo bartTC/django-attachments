@@ -11,7 +11,7 @@ def attachment_form(context, obj):
     """
     Renders a "upload attachment" form
     """
-    if context['request'].user.is_authenticated():
+    if context['user'].is_authenticated():
         return {
             'form': AttachmentForm(),
             'form_url': add_url_for_obj(obj),
@@ -29,8 +29,8 @@ def attachment_delete_link(context, attachment):
     no content if the request-user has no permission to delete foreign
     attachments.
     """
-    if context['request'].user.has_perm('delete_foreign_attachments') \
-       or context['request'].user == attachment.creator:
+    if context['user'].has_perm('delete_foreign_attachments') \
+       or context['user'] == attachment.creator:
         return {
             'next': context['request'].build_absolute_uri(),
             'delete_url': reverse('delete_attachment', kwargs={'attachment_pk': attachment.pk})
@@ -53,10 +53,8 @@ class AttachmentsForObjectNode(Node):
 
     def render(self, context):
         obj = self.resolve(self.obj, context)
-        if self.var_name:
-            var_name = self.resolve(self.var_name, context)
-        else:
-            var_name = 'attachments'
+        var_name = self.resolve(self.var_name, context)
+        print var_name
         context[var_name] = Attachment.objects.attachments_for_object(obj)
         return ''
 
@@ -86,6 +84,6 @@ def get_attachments_for(parser, token):
     bits = token.contents.split()
     args = {
         'obj': next_bit_for(bits, 'get_attachments_for'),
-        'var_name': next_bit_for(bits, 'as'),
+        'var_name': next_bit_for(bits, 'as', '"attachments"'),
     }
     return AttachmentsForObjectNode(**args)
