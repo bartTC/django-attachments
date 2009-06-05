@@ -12,7 +12,18 @@ Installation:
    within your django project.
 
 2. Add ``(r'^attachments/', include('attachments.urls')),`` to your ``urls.py``.
-   
+
+3. Add ``'django.core.context_processors.request'`` to your ``TEMPLATE_CONTEXT_PROCESSORS``
+   in your settings.py. If this setting does not exist, simply add the following
+   snippet at the end of your settings.py.
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        'django.core.context_processors.auth',
+        'django.core.context_processors.i18n',
+        'django.core.context_processors.media',
+        'django.core.context_processors.request',
+    )
+
 This app provides a additional permission ``delete_foreign_attachments``
 which enables that users with it can delete foreign attachments. Normally only
 the user who uploaded the attachment can delete it.
@@ -39,6 +50,10 @@ Simply add ``AttachmentInlines`` to the admin options of your model. Example::
 In your frontend templates:
 ---------------------------
 
+First of all, load the attachments_tags in every template you want to use::
+
+    {% load attachments_tags %}
+    
 django-attachments comes with some templatetags to add or delete attachments
 for your model objects in your frontend.
 
