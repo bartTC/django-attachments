@@ -24,6 +24,10 @@ Installation:
         'django.core.context_processors.request',
     )
 
+4. Don't forget to resync your database::
+
+    ./manage.py syncdb
+
 This app provides a additional permission ``delete_foreign_attachments``
 which enables that users with it can delete foreign attachments. Normally only
 the user who uploaded the attachment can delete it.

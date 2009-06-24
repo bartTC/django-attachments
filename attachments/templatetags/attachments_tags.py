@@ -54,7 +54,6 @@ class AttachmentsForObjectNode(Node):
     def render(self, context):
         obj = self.resolve(self.obj, context)
         var_name = self.resolve(self.var_name, context)
-        print var_name
         context[var_name] = Attachment.objects.attachments_for_object(obj)
         return ''
 
