@@ -28,9 +28,17 @@ Installation:
 
     ./manage.py syncdb
 
-This app provides a additional permission ``delete_foreign_attachments``
-which enables that users with it can delete foreign attachments. Normally only
-the user who uploaded the attachment can delete it.
+5. Grant the user some permissons:
+
+   * For **adding attachments** grant the user (or group) the permission
+     ``attachment.add_attachments``.
+
+   * For **deleting attachments** grant the user (or group) the permission
+     ``attachment.delete_attachments``. This allows the user to delete only
+     attachments which are assigned to him (rather the attachments he uploaded self).
+
+   * For **deleting foreign attachments** (attachments by other users) grant
+     the user the permission ``attachments.delete_foreign_attachments``.
 
 Usage:
 ======
@@ -45,7 +53,7 @@ Simply add ``AttachmentInlines`` to the admin options of your model. Example::
 
     from django.contrib import admin
     from attachments.admin import AttachmentInlines
-    
+
     class MyEntryOptions(admin.ModelAdmin)
         inlines = [AttachmentInlines]
 
@@ -90,7 +98,7 @@ Quick Example:
 ==============
 
 ::
-    
+
     {% load attachments_tags %}
     {% get_attachments_for entry as "my_entry_attachments" %}
     
@@ -106,3 +114,15 @@ Quick Example:
     {% endif %}
 
     {% attachment_form entry %}
+
+Changelog:
+==========
+
+v0.3 (2009-07-22):
+
+    * This version adds more granular control about user permissons. You need
+      to explicitly add permissions to users who should been able to upload,
+      delete or delete foreign attachments. 
+
+      This might be **backwards incompatible** as you did not need to assign add/delete
+      permissions before!
