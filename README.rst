@@ -31,14 +31,17 @@ Installation:
 5. Grant the user some permissons:
 
    * For **adding attachments** grant the user (or group) the permission
-     ``attachment.add_attachments``.
+     ``attachments.add_attachments``.
 
    * For **deleting attachments** grant the user (or group) the permission
-     ``attachment.delete_attachments``. This allows the user to delete only
+     ``attachments.delete_attachments``. This allows the user to delete only
      attachments which are assigned to him (rather the attachments he uploaded self).
 
    * For **deleting foreign attachments** (attachments by other users) grant
      the user the permission ``attachments.delete_foreign_attachments``.
+     
+   This only works for the templatetags, the admin still allows anybody to add
+   or delete attachments.
 
 Usage:
 ======
