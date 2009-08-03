@@ -43,6 +43,20 @@ Installation:
    This only works for the templatetags, the admin still allows anybody to add
    or delete attachments.
 
+
+Mind that you serve files!
+==========================
+
+django-attachments stores the files in your site_media directory and does not modify
+them. For example, if an user uploads a .html file your webserver will probably display
+it in HTML. It's a good idea to serve such files as plain text. In a Apache2
+configuration this would look like:: 
+
+    <Location /site_media/attachments>
+        AddType text/plain .html .htm .shtml .php .php5 .php4 .pl .cgi
+    </Location>
+
+
 Usage:
 ======
 
@@ -120,6 +134,10 @@ Quick Example:
 
 Changelog:
 ==========
+
+v0.3.1 (2009-07-29):
+
+    * Added a note to the README that you should secure your static files.
 
 v0.3 (2009-07-22):
 
