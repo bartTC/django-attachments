@@ -132,6 +132,27 @@ Quick Example:
 
     {% attachment_form entry %}
 
+In the console:
+==========
+
+First, import the items you will need::
+    import os
+    from django.core.files import File
+    from attachments.models import Attachment
+    from myproject.models import Person
+
+Next, retrieve the object you wish to attach to::
+    me = Person.objects.get(name='aaron')
+
+Now open the attachment you want from your drive using the django File object::
+    mypicture = File(open('/home/aaron/mypicture.jpg', 'r'))
+
+Finally, create the Attachment object and save it::
+    a = Attachment()
+    a.creator = me
+    a.attachment_file = mypicture
+    a.save()
+
 Changelog:
 ==========
 
