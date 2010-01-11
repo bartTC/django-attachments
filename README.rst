@@ -133,7 +133,7 @@ Quick Example:
     {% attachment_form entry %}
 
 In the console:
-==========
+===============
 
 First, import the items you will need::
     import os
