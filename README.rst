@@ -150,12 +150,13 @@ Now open the attachment you want from your drive using the django File object::
 
     mypicture = File(open('/home/aaron/mypicture.jpg', 'r'))
 
-Finally, create the Attachment object and save it::
+Finally, create the Attachment object and save it, and close the file handle::
 
     a = Attachment()
     a.creator = me
     a.attachment_file = mypicture
     a.save()
+    mypicture.close()
 
 Changelog:
 ==========
