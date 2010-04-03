@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-04 00:18+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:7
+msgid "Upload attachment"
+msgstr ""
+
+#: models.py:29
+msgid "creator"
+msgstr ""
+
+#: models.py:30
+msgid "attachment"
+msgstr ""
+
+#: models.py:31
+msgid "created"
+msgstr ""
+
+#: models.py:32
+msgid "modified"
+msgstr ""
+
+#: views.py:33
+msgid "Your attachment was uploaded."
+msgstr ""
+
+#: views.py:51
+msgid "Your attachment was deleted."
+msgstr ""
+
+#: templates/attachments/add_form.html:7
+msgid "Add attachment"
+msgstr ""
+
+#: templates/attachments/delete_link.html:2
+msgid "Delete attachment"
+msgstr ""
