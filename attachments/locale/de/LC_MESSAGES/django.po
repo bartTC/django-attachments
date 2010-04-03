@@ -3,51 +3,51 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: django-attachments\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-04 00:19+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-04-04 00:29+0100\n"
+"Last-Translator: Martin Mahner <martin@mahner.org>\n"
+"Language-Team: de <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: forms.py:7
 msgid "Upload attachment"
-msgstr ""
+msgstr "Anhang hochladen"
 
 #: models.py:29
 msgid "creator"
-msgstr ""
+msgstr "Autor"
 
 #: models.py:30
 msgid "attachment"
-msgstr ""
+msgstr "Anhang"
 
 #: models.py:31
 msgid "created"
-msgstr ""
+msgstr "Erstellt"
 
 #: models.py:32
 msgid "modified"
-msgstr ""
+msgstr "Geändert"
 
 #: views.py:33
 msgid "Your attachment was uploaded."
-msgstr ""
+msgstr "Dein Anhang wurde hochgeladen."
 
 #: views.py:51
 msgid "Your attachment was deleted."
-msgstr ""
+msgstr "Dein Anhang wurde gelöscht."
 
 #: templates/attachments/add_form.html:7
 msgid "Add attachment"
-msgstr ""
+msgstr "Anhang hinzufügen"
 
 #: templates/attachments/delete_link.html:2
 msgid "Delete attachment"
-msgstr ""
+msgstr "Anhang löschen"
+
