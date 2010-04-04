@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Panos Laganakos <panos.laganakos@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-attachments\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-04 02:52+0300\n"
+"PO-Revision-Date: 2010-04-04 15:07+0100\n"
+"Last-Translator: Martin Mahner <martin@mahner.org>\n"
+"Language-Team: gr <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:7
+msgid "Upload attachment"
+msgstr "Φώρτωση συνημμένου"
+
+#: models.py:29
+msgid "creator"
+msgstr "δημιουργός"
+
+#: models.py:30
+msgid "attachment"
+msgstr "συνημμένο"
+
+#: models.py:31
+msgid "created"
+msgstr "δημιουργήθηκε"
+
+#: models.py:32
+msgid "modified"
+msgstr "τροποποιήθηκε"
+
+#: views.py:33
+msgid "Your attachment was uploaded."
+msgstr "Η επισύναψη σας ολοκληρώθηκε."
+
+#: views.py:51
+msgid "Your attachment was deleted."
+msgstr "Το συνήμμενο σας διεγράφει."
+
+#: templates/attachments/add_form.html:7
+msgid "Add attachment"
+msgstr "Προσθέστε ένα συνημμένο"
+
+#: templates/attachments/delete_link.html:2
+msgid "Delete attachment"
+msgstr "Διαγράψτε το συνημμένο"
+
