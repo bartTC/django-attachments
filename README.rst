@@ -103,7 +103,7 @@ for your model objects in your frontend.
 3. ``attachment_delete_link``: Renders a link to the delete view for the given
    *attachment*. Example::
    
-    {% for att in attachment_list %}
+    {% for att in attachments_list %}
         {{ att }} {% attachment_delete_link att %}
     {% endfor %}
     
