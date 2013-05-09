@@ -22,6 +22,7 @@ Installation:
         'django.core.context_processors.i18n',
         'django.core.context_processors.media',
         'django.core.context_processors.request',
+        'django.contrib.messages.context_processors.messages',
     )
 
 4. Don't forget to resync your database::
@@ -131,6 +132,16 @@ Quick Example:
     {% endif %}
 
     {% attachment_form entry %}
+
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
 
 In the console:
 ===============
