@@ -1,10 +1,13 @@
 from datetime import datetime
 import os
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
+
+# From https://github.com/etianen/django-reversion/pull/206/files
+UserModel = getattr(settings, 'AUTH_USER_MODEL', 'auth.User') 
 
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
@@ -26,7 +29,7 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
-    creator = models.ForeignKey(User, related_name="created_attachments", verbose_name=_('creator'))
+    creator = models.ForeignKey(UserModel, related_name="created_attachments", verbose_name=_('creator'))
     attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
