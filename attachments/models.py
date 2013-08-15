@@ -41,7 +41,7 @@ class Attachment(models.Model):
         )
 
     def __unicode__(self):
-        return '%s attached %s' % (self.creator.username, self.attachment_file.name)
+        return '%s attached %s' % (self.creator.get_username(), self.attachment_file.name)
 
     @property
     def filename(self):
