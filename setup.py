@@ -18,6 +18,10 @@ setup(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
+    install_requires = [
+        'django>=1.5.1',
+        'south==0.8.4',
+    ],
     package_data = {
         'attachments': [
             'templates/attachments/*.html',
