@@ -1,4 +1,3 @@
-from datetime import datetime
 import os
 from django.db import models
 from django.conf import settings 
@@ -7,7 +6,7 @@ from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
 
 # From https://github.com/etianen/django-reversion/pull/206/files
-UserModel = getattr(settings, 'AUTH_USER_MODEL', 'auth.User') 
+UserModel = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
@@ -42,6 +41,12 @@ class Attachment(models.Model):
 
     def __unicode__(self):
         return '%s attached %s' % (self.creator.get_username(), self.attachment_file.name)
+
+    def url(self):
+        """ Returns relative URL of the attachment file, which already includes MEDIA_URL
+        value """
+        return os.path.join(
+            self.attachment_file.storage.base_url, self.attachment_file.name)
 
     @property
     def filename(self):
