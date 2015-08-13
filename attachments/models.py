@@ -1,13 +1,20 @@
-from datetime import datetime
+from __future__ import unicode_literals
+
 import os
+
+from django.conf import settings
 from django.db import models
-from django.conf import settings 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
 
-# From https://github.com/etianen/django-reversion/pull/206/files
-UserModel = getattr(settings, 'AUTH_USER_MODEL', 'auth.User') 
+def attachment_upload(instance, filename):
+    """Stores the attachment in a "per module/appname/primary key" folder"""
+    return 'attachments/{}_{}/{}/{}'.format(
+        instance.content_object._meta.app_label,
+        instance.content_object._meta.object_name.lower(),
+        instance.content_object.pk,
+        filename)
 
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
@@ -16,20 +23,13 @@ class AttachmentManager(models.Manager):
                            object_id=obj.id)
 
 class Attachment(models.Model):
-    def attachment_upload(instance, filename):
-        """Stores the attachment in a "per module/appname/primary key" folder"""
-        return 'attachments/%s/%s/%s' % (
-            '%s_%s' % (instance.content_object._meta.app_label,
-                       instance.content_object._meta.object_name.lower()),
-                       instance.content_object.pk,
-                       filename)
-
     objects = AttachmentManager()
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
-    creator = models.ForeignKey(UserModel, related_name="created_attachments", verbose_name=_('creator'))
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="created_attachments",
+        verbose_name=_('creator'))
     attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
@@ -37,11 +37,13 @@ class Attachment(models.Model):
     class Meta:
         ordering = ['-created']
         permissions = (
-            ('delete_foreign_attachments', 'Can delete foreign attachments'),
+            ('delete_foreign_attachments', _('Can delete foreign attachments')),
         )
 
     def __unicode__(self):
-        return '%s attached %s' % (self.creator.get_username(), self.attachment_file.name)
+        return '{} attached {}'.format(
+            self.creator.get_username(),
+            self.attachment_file.name)
 
     @property
     def filename(self):
