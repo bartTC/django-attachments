@@ -1,0 +1,15 @@
+Changelog:
+==========
+
+v0.3.1 (2009-07-29):
+
+    * Added a note to the README that you should secure your static files.
+
+v0.3 (2009-07-22):
+
+    * This version adds more granular control about user permissons. You need
+      to explicitly add permissions to users who should been able to upload,
+      delete or delete foreign attachments.
+
+      This might be **backwards incompatible** as you did not need to assign
+      add/delete permissions before!

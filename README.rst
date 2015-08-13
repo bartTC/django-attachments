@@ -40,7 +40,7 @@ Installation:
 
    * For **deleting foreign attachments** (attachments by other users) grant
      the user the permission ``attachments.delete_foreign_attachments``.
-     
+
    This only works for the templatetags, the admin still allows anybody to add
    or delete attachments.
 
@@ -51,7 +51,7 @@ Mind that you serve files!
 django-attachments stores the files in your site_media directory and does not modify
 them. For example, if an user uploads a .html file your webserver will probably display
 it in HTML. It's a good idea to serve such files as plain text. In a Apache2
-configuration this would look like:: 
+configuration this would look like::
 
     <Location /site_media/attachments>
         AddType text/plain .html .htm .shtml .php .php5 .php4 .pl .cgi
@@ -83,7 +83,7 @@ In your frontend templates:
 First of all, load the attachments_tags in every template you want to use it::
 
     {% load attachments_tags %}
-    
+
 django-attachments comes with some templatetags to add or delete attachments
 for your model objects in your frontend.
 
@@ -91,25 +91,25 @@ for your model objects in your frontend.
    model instance. You can optionally define a variable name in which the attachment
    list is stored in the template context. The default context variable name is
    ``attachments`` Example::
-   
+
    {% get_attachments_for entry as "attachments_list" %}
 
 2. ``attachment_form``: Renders a upload form to add attachments for the given
    model instance. Example::
-   
+
     {% attachment_form [object] %}
 
    It returns an empty string if the current user is not logged in.
 
 3. ``attachment_delete_link``: Renders a link to the delete view for the given
    *attachment*. Example::
-   
+
     {% for att in attachments_list %}
         {{ att }} {% attachment_delete_link att %}
     {% endfor %}
-    
+
    This tag automatically checks for permission. It returns only a html link if the
-   give n attachment's creator is the current logged in user or the user has the 
+   give n attachment's creator is the current logged in user or the user has the
    ``delete_foreign_attachments`` permission.
 
 Quick Example:
@@ -119,7 +119,7 @@ Quick Example:
 
     {% load attachments_tags %}
     {% get_attachments_for entry as "my_entry_attachments" %}
-    
+
     {% if my_entry_attachments %}
     <ul>
     {% for attachment in my_entry_attachments %}
@@ -168,19 +168,3 @@ Finally, create the Attachment object and save it, and close the file handle::
     a.attachment_file = mypicture
     a.save()
     mypicture.close()
-
-Changelog:
-==========
-
-v0.3.1 (2009-07-29):
-
-    * Added a note to the README that you should secure your static files.
-
-v0.3 (2009-07-22):
-
-    * This version adds more granular control about user permissons. You need
-      to explicitly add permissions to users who should been able to upload,
-      delete or delete foreign attachments. 
-
-      This might be **backwards incompatible** as you did not need to assign add/delete
-      permissions before!
