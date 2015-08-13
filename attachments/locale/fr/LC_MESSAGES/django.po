@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-attachments\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-04 00:18+0200\n"
+"PO-Revision-Date: 2010-04-04 00:28+0100\n"
+"Last-Translator: AERT <dev.aert@gmail.com>\n"
+"Language-Team: en <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:7
+msgid "Upload attachment"
+msgstr "Ajouter une pièce jointe"
+
+#: models.py:29
+msgid "creator"
+msgstr "créateur"
+
+#: models.py:30
+msgid "attachment"
+msgstr "pièce jointe"
+
+#: models.py:31
+msgid "created"
+msgstr "créé"
+
+#: models.py:32
+msgid "modified"
+msgstr "modifié"
+
+#: views.py:33
+msgid "Your attachment was uploaded."
+msgstr "Votre pièce jointe a été ajoutée."
+
+#: views.py:51
+msgid "Your attachment was deleted."
+msgstr "Votre pièce jointe a été supprimée."
+
+#: templates/attachments/add_form.html:7
+msgid "Add attachment"
+msgstr "Ajouter une pièce jointe"
+
+#: templates/attachments/delete_link.html:2
+msgid "Delete attachment"
+msgstr "Supprimer la pièce jointe"
+
