@@ -3,7 +3,7 @@ import os
 from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 # From https://github.com/etianen/django-reversion/pull/206/files
@@ -28,7 +28,7 @@ class Attachment(models.Model):
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
     creator = models.ForeignKey(UserModel, related_name="created_attachments", verbose_name=_('creator'))
     attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
