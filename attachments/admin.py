@@ -1,6 +1,6 @@
 from attachments.models import Attachment
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.admin import GenericStackedInline
 
-class AttachmentInlines(generic.GenericStackedInline):
+class AttachmentInlines(GenericStackedInline):
     model = Attachment
     extra = 1
