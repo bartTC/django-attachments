@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
 
+
 def attachment_upload(instance, filename):
     """Stores the attachment in a "per module/appname/primary key" folder"""
     return 'attachments/{}_{}/{}/{}'.format(
@@ -16,11 +17,13 @@ def attachment_upload(instance, filename):
         instance.content_object.pk,
         filename)
 
+
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
         object_type = ContentType.objects.get_for_model(obj)
         return self.filter(content_type__pk=object_type.id,
                            object_id=obj.id)
+
 
 class Attachment(models.Model):
     objects = AttachmentManager()

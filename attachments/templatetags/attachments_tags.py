@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.template import Library, Node, Variable
 from attachments.forms import AttachmentForm
 from attachments.views import add_url_for_obj
