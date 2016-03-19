@@ -1,3 +1,12 @@
+.. image:: https://travis-ci.org/bartTC/django-attachments.svg?branch=master
+    :target: https://travis-ci.org/bartTC/django-attachments
+
+.. note:: ``django-attachments`` had a heavy update recently, it now supports
+    Django 1.8 upwards and Python 3. There is an alpha release available to
+    install::
+
+        pip install -U --pre django-attachments
+
 ==================
 django-attachments
 ==================
@@ -9,27 +18,22 @@ Installation:
 =============
 
 1. Put ``attachments`` to your ``INSTALLED_APPS`` in your ``settings.py``
-   within your django project.
+   within your django project::
 
-2. Add ``(r'^attachments/', include('attachments.urls')),`` to your ``urls.py``.
-
-3. Add ``'django.core.context_processors.request'`` to your ``TEMPLATE_CONTEXT_PROCESSORS``
-   in your settings.py. If this setting does not exist, simply add the following
-   snippet at the end of your settings.py::
-
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        'django.core.context_processors.auth',
-        'django.core.context_processors.i18n',
-        'django.core.context_processors.media',
-        'django.core.context_processors.request',
-        'django.contrib.messages.context_processors.messages',
+    INSTALLED_APPS = (
+        ...
+        'attachments',
     )
 
-4. Don't forget to resync your database::
+2. Add the attachments urlpattern to your ``urls.py``::
 
-    ./manage.py syncdb
+    url(r'^attachments/', include('attachments.urls', namespace='attachments')),
 
-5. Grant the user some permissons:
+4. Don't forget to migrate your database::
+
+    ./manage.py migrate
+
+5. Grant the user some permissions:
 
    * For **adding attachments** grant the user (or group) the permission
      ``attachments.add_attachments``.
@@ -57,6 +61,17 @@ configuration this would look like::
         AddType text/plain .html .htm .shtml .php .php5 .php4 .pl .cgi
     </Location>
 
+
+Tests
+=====
+
+Run the testsuite in your local environment using::
+
+    $ python ./runtests.py
+
+Or use tox to test against various Django and Python versions::
+
+    $ tox -r
 
 Usage:
 ======
