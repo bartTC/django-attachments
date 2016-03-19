@@ -1,6 +1,9 @@
 .. image:: https://travis-ci.org/bartTC/django-attachments.svg?branch=master
     :target: https://travis-ci.org/bartTC/django-attachments
 
+.. image:: https://codecov.io/github/bartTC/django-attachments/coverage.svg?branch=master
+    :target: https://codecov.io/github/bartTC/django-attachments?branch=master
+
 .. note:: ``django-attachments`` had a heavy update recently, it now supports
     Django 1.8 upwards and Python 3. There is an alpha release available to
     install::
