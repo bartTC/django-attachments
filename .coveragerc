@@ -1,0 +1,14 @@
+[run]
+source = attachments
+branch = True
+omit =
+    attachments/migrations/*
+    attachments/tests/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+
+[html]
+directory = /tmp/coverage_html_report

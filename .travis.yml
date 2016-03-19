@@ -1,0 +1,19 @@
+language: python
+
+services:
+  - memcached
+
+python:
+  - 2.7
+  - 3.5
+
+env:
+  - DJANGO=1.8.*
+  - DJANGO=1.9.*
+
+install:
+  - pip install django==$DJANGO
+  - pip install -e .
+
+script:
+  - python runtests.py

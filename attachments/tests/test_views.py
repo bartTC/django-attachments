@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
@@ -25,7 +27,7 @@ class AttachmentsTestCase(TestCase):
                 'pk': self.obj.pk,
             })
 
-            f = SimpleUploadedFile("avatar.jpg", "file content", content_type="image/jpeg")
+            f = SimpleUploadedFile("avatar.jpg", b"file content", content_type="image/jpeg")
             self.client.post(add_url, {'attachment_file': f}, follow=True)
             self.assertEqual(Attachment.objects.count(), 1)
             self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 1)
