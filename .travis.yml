@@ -11,9 +11,15 @@ env:
   - DJANGO=1.8.*
   - DJANGO=1.9.*
 
+before_install:
+  - pip install codecov
+
 install:
   - pip install django==$DJANGO
   - pip install -e .
 
 script:
   - python runtests.py
+
+after_success:
+  - codecov
