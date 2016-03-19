@@ -1,6 +1,7 @@
 {% load i18n %}
 {% if form %}
 <form method="post" enctype="multipart/form-data" action="{{ form_url }}" class="add-attachment">
+    {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}"/>
     {{ form.as_p }}
     <p class="submit">

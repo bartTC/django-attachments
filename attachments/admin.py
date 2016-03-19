@@ -3,4 +3,4 @@ from django.contrib.contenttypes import generic
 
 class AttachmentInlines(generic.GenericStackedInline):
     model = Attachment
-    extra = 1
+    extra = 0

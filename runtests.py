@@ -21,6 +21,7 @@ SETTINGS = {
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
+        'attachments.tests',
         'attachments',
     ],
     'MIDDLEWARE_CLASSES': (

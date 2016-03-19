@@ -73,7 +73,7 @@ Simply add ``AttachmentInlines`` to the admin options of your model. Example::
     from attachments.admin import AttachmentInlines
 
     class MyEntryOptions(admin.ModelAdmin):
-        inlines = [AttachmentInlines]
+        inlines = (AttachmentInlines,)
 
 .. image:: http://cloud.github.com/downloads/bartTC/django-attachments/attachments_screenshot_admin.png
 
