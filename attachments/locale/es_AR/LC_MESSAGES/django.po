@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gonzalo Bustos, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-31 17:20-0300\n"
+"PO-Revision-Date: 2015-10-11 22:04-0300\n"
+"Last-Translator: Gonzalo Bustos\n"
+"Language-Team: Spanish (Argentina)\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#: forms.py:7
+msgid "Upload attachment"
+msgstr "Subir adjunto"
+
+#: models.py:32
+msgid "creator"
+msgstr "creador"
+
+#: models.py:33 models.py:38
+msgid "attachment"
+msgstr "adjunto"
+
+#: models.py:34
+msgid "created"
+msgstr "creado"
+
+#: models.py:35
+msgid "modified"
+msgstr "modificado"
+
+#: views.py:34
+msgid "Your attachment was uploaded."
+msgstr "Su adjunto fue subido."
+
+#: views.py:52
+msgid "Your attachment was deleted."
+msgstr "Su adjunto fue eliminado."
+
+#: templates/attachments/add_form.html:7
+msgid "Add attachment"
+msgstr "Agregar adjunto"
+
+#: templates/attachments/delete_link.html:2
+msgid "Delete attachment"
+msgstr "Eliminar adjunto"
