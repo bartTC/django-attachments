@@ -31,9 +31,12 @@ def add_url_for_obj(obj):
 def add_attachment(request, app_label, model_name, pk,
                    template_name='attachments/add.html', extra_context={}):
     next = request.POST.get('next', '/')
-    model = get_model(app_label, model_name)
-    if model is None:
+
+    try:
+        model = get_model(app_label, model_name)
+    except LookupError:
         return HttpResponseRedirect(next)
+
     obj = get_object_or_404(model, pk=pk)
     form = AttachmentForm(request.POST, request.FILES)
 
