@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.views.decorators.http import require_POST
-from django.views.generic import FormView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext
@@ -18,6 +17,8 @@ try:
 except ImportError:
     from django.apps import apps
     get_model = apps.get_model
+
+
 def add_url_for_obj(obj):
     return reverse('attachments:add', kwargs={
         'app_label': obj._meta.app_label,
@@ -25,15 +26,10 @@ def add_url_for_obj(obj):
         'pk': obj.pk
     })
 
-class AddAttachmentView(FormView):
-    form_class = AttachmentForm
-
-
 @require_POST
 @login_required
 def add_attachment(request, app_label, model_name, pk,
                    template_name='attachments/add.html', extra_context={}):
-
     next = request.POST.get('next', '/')
     model = get_model(app_label, model_name)
     if model is None:

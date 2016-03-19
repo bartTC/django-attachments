@@ -1,18 +1,27 @@
-#from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
 from django.test import TestCase
-#from django.core.urlresolvers import reverse
-from .models import TestItem
+
+from attachments.models import Attachment
+
+from .MyTestProject.models import MyTestAppModel
+
 
 class AttachmentsTestCase(TestCase):
     def setUp(self):
-        TestItem.objects.create(title='My first test item')
+        self.user = User.objects.create_user('jon', 'jon@foobar.com', 'foobar')
+        self.obj = MyTestAppModel.objects.create(title='My first test item')
+        self.client.login(username='jon', password='foobar')
 
-    # def test_upload(self):
-    #     add_url = reverse('attachments:add', kwargs={
-    #         'app_label': 'attachments',
-    #         'model_name': 'TestModel',
-    #         'pk': 1,
-    #     })
+    def test_upload(self):
+        add_url = reverse('attachments:add', kwargs={
+            'app_label': 'MyTestProject',
+            'model_name': 'MyTestAppModel',
+            'pk': self.obj.pk,
+        })
 
-    #     f = SimpleUploadedFile("avatar.jpg", "file content", content_type="image/jpeg")
-    #     self.client.post(add_url, {'attachment_file': f})
+        f = SimpleUploadedFile("avatar.jpg", "file content", content_type="image/jpeg")
+        self.client.post(add_url, {'attachment_file': f}, follow=True)
+        self.assertEqual(Attachment.objects.count(), 1)
+        self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 1)

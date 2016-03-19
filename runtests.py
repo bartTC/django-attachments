@@ -16,16 +16,21 @@ SETTINGS = {
         #     'PASSWORD': '',
         # }
     },
+    'ROOT_URLCONF': 'attachments.tests.MyTestProject.urls',
     'INSTALLED_APPS': [
+        'attachments',
+        'attachments.tests.MyTestProject',
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
-        'attachments.tests',
-        'attachments',
+        'django.contrib.messages',
+
     ],
     'MIDDLEWARE_CLASSES': (
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
     ),
 }
 
