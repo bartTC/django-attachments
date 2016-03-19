@@ -8,7 +8,7 @@ long_description = u'\n\n'.join((
 
 setup(
     name='django-attachments',
-    version='0.9',
+    version='1.0a',
     description='django-attachments is generic Django application to attach '
         'Files (Attachments) to any model.',
     long_description=long_description,
@@ -32,6 +32,6 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        'django>=1.7',
+        'django>=1.8',
     ],
 )
