@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-31 17:20-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:7
+msgid "Upload attachment"
+msgstr "Subir anexo"
+
+#: models.py:32
+msgid "creator"
+msgstr "criador"
+
+#: models.py:33 models.py:38
+msgid "attachment"
+msgstr "anexo"
+
+#: models.py:34
+msgid "created"
+msgstr "criado"
+
+#: models.py:35
+msgid "modified"
+msgstr "modificado"
+
+#: views.py:34
+msgid "Your attachment was uploaded."
+msgstr "Seu anexo foi enviado."
+
+#: views.py:52
+msgid "Your attachment was deleted."
+msgstr "Seu anexo foi excluido."
+
+#: templates/attachments/add_form.html:7
+msgid "Add attachment"
+msgstr "Adicionar anexo"
+
+#: templates/attachments/delete_link.html:2
+msgid "Delete attachment"
+msgstr "Excluir anexo"

@@ -2,7 +2,6 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic import FormView
 from django.http import HttpResponseRedirect
-from django.db.models.loading import get_model
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext
 from django.template.context import RequestContext
@@ -12,6 +11,11 @@ from django.contrib import messages
 from attachments.models import Attachment
 from attachments.forms import AttachmentForm
 
+try:
+    from django.db.models.loading import get_model
+except ImportError:
+    from django.apps import apps
+    get_model = apps.get_model
 def add_url_for_obj(obj):
     return reverse('attachments:add', kwargs={
         'app_label': obj._meta.app_label,
