@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 import sys
+import os
 
 from django import setup
 from django.conf import settings
 from django.test.runner import DiscoverRunner as TestRunner
+
+TESTAPP_DIR = os.path.join(
+    os.path.dirname(__file__),
+    'attachments',
+    'tests',
+    'testapp',
+)
 
 SETTINGS = {
     'DATABASES': {
@@ -18,18 +26,16 @@ SETTINGS = {
         #     'PASSWORD': '',
         # }
     },
-    'MEDIA_ROOT': '/tmp/',
+    'MEDIA_ROOT': os.path.join(TESTAPP_DIR, 'uploads'),
     'ROOT_URLCONF': 'attachments.tests.testapp.urls',
     'INSTALLED_APPS': [
         'attachments',
         'attachments.tests.testapp',
-
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
-
     ],
     'MIDDLEWARE_CLASSES': (
         'django.contrib.sessions.middleware.SessionMiddleware',
