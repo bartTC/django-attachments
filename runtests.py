@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import sys
 
+from django import setup
 from django.conf import settings
+from django.test.runner import DiscoverRunner as TestRunner
 
 SETTINGS = {
     'DATABASES': {
@@ -16,10 +18,12 @@ SETTINGS = {
         #     'PASSWORD': '',
         # }
     },
-    'ROOT_URLCONF': 'attachments.tests.MyTestProject.urls',
+    'MEDIA_ROOT': '/tmp/',
+    'ROOT_URLCONF': 'attachments.tests.testapp.urls',
     'INSTALLED_APPS': [
         'attachments',
-        'attachments.tests.MyTestProject',
+        'attachments.tests.testapp',
+
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -39,18 +43,7 @@ def runtests(*test_args):
     if not settings.configured:
         settings.configure(**SETTINGS)
 
-    # New Django 1.7 app registry setup
-    try:
-        from django import setup
-        setup()
-    except ImportError:
-        pass
-
-    # New Django 1.8 test runner
-    try:
-        from django.test.runner import DiscoverRunner as TestRunner
-    except ImportError:
-        from django.test.simple import DjangoTestSuiteRunner as TestRunner
+    setup()
 
     test_runner = TestRunner(verbosity=1)
     failures = test_runner.run_tests(['attachments'])
