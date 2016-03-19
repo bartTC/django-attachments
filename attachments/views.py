@@ -61,5 +61,5 @@ def delete_attachment(request, attachment_pk):
        or request.user == g.creator:
         g.delete()
         messages.success(request, ugettext('Your attachment was deleted.'))
-    next = request.REQUEST.get('next') or '/'
+    next = request.GET.get('next') or '/'
     return HttpResponseRedirect(next)
