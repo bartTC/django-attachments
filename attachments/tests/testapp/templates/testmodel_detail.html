@@ -1,0 +1,13 @@
+{% load attachments_tags %}
+
+<h1>{{ object.title }}</h1>
+
+{% get_attachments_for object as attachments_list %}
+{% for att in attachments_list %}
+    {{ att }}
+    {{ att.attachment_file.url }}
+    {{ att.filename }}
+    {% attachment_delete_link att %}
+{% endfor %}
+
+{% attachment_form object %}

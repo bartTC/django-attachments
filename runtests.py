@@ -4,7 +4,7 @@ import os
 
 from django import setup
 from django.conf import settings
-from django.test.runner import DiscoverRunner as TestRunner
+from django.test.runner import DiscoverRunner
 
 TESTAPP_DIR = os.path.join(
     os.path.dirname(__file__),
@@ -51,7 +51,7 @@ def runtests(*test_args):
 
     setup()
 
-    test_runner = TestRunner(verbosity=1)
+    test_runner = DiscoverRunner(verbosity=1)
     failures = test_runner.run_tests(['attachments'])
     if failures:
         sys.exit(failures)
