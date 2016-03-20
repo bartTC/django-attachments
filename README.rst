@@ -4,12 +4,6 @@
 .. image:: https://codecov.io/github/bartTC/django-attachments/coverage.svg?branch=master
     :target: https://codecov.io/github/bartTC/django-attachments?branch=master
 
-.. note:: ``django-attachments`` had a heavy update recently, it now supports
-    Django 1.8 upwards and Python 3. There is an alpha release available to
-    install::
-
-        pip install -U --pre django-attachments
-
 ==================
 django-attachments
 ==================
@@ -32,7 +26,7 @@ Installation:
 
     url(r'^attachments/', include('attachments.urls', namespace='attachments')),
 
-4. Don't forget to migrate your database::
+3. Migrate your database::
 
     ./manage.py migrate
 
@@ -42,14 +36,11 @@ Installation:
      ``attachments.add_attachments``.
 
    * For **deleting attachments** grant the user (or group) the permission
-     ``attachments.delete_attachments``. This allows the user to delete only
-     attachments which are assigned to him (rather the attachments he uploaded self).
+     ``attachments.delete_attachments``. This allows the user to delete their
+     attachments only.
 
    * For **deleting foreign attachments** (attachments by other users) grant
      the user the permission ``attachments.delete_foreign_attachments``.
-
-   This only works for the templatetags, the admin still allows anybody to add
-   or delete attachments.
 
 
 Mind that you serve files!
@@ -136,7 +127,7 @@ Quick Example:
 ::
 
     {% load attachments_tags %}
-    {% get_attachments_for entry as "my_entry_attachments" %}
+    {% get_attachments_for entry as my_entry_attachments %}
 
     {% if my_entry_attachments %}
     <ul>
@@ -160,29 +151,3 @@ Quick Example:
     {% endfor %}
     </ul>
     {% endif %}
-
-In the console:
-===============
-
-First, import the items you will need::
-
-    import os
-    from django.core.files import File
-    from attachments.models import Attachment
-    from myproject.models import Person
-
-Next, retrieve the object you wish to attach to::
-
-    me = Person.objects.get(name='aaron')
-
-Now open the attachment you want from your drive using the django File object::
-
-    mypicture = File(open('/home/aaron/mypicture.jpg', 'r'))
-
-Finally, create the Attachment object and save it, and close the file handle::
-
-    a = Attachment()
-    a.creator = me
-    a.attachment_file = mypicture
-    a.save()
-    mypicture.close()
