@@ -11,11 +11,11 @@ from django.utils.translation import ugettext_lazy as _
 
 def attachment_upload(instance, filename):
     """Stores the attachment in a "per module/appname/primary key" folder"""
-    return 'attachments/{}_{}/{}/{}'.format(
-        instance.content_object._meta.app_label,
-        instance.content_object._meta.object_name.lower(),
-        instance.content_object.pk,
-        filename)
+    return 'attachments/{app}_{model}/{pk}/{filename}'.format(
+        app=instance.content_object._meta.app_label,
+        model=instance.content_object._meta.object_name.lower(),
+        pk=instance.content_object.pk,
+        filename=filename)
 
 
 class AttachmentManager(models.Manager):

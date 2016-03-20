@@ -1,22 +1,17 @@
 from __future__ import unicode_literals
 
-from django.shortcuts import render_to_response, get_object_or_404
-from django.views.decorators.http import require_POST
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext
-from django.template.context import RequestContext
-from django.contrib.auth.decorators import login_required
+from django.apps import apps
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template.context import RequestContext
+from django.utils.translation import ugettext
+from django.views.decorators.http import require_POST
 
-from attachments.models import Attachment
-from attachments.forms import AttachmentForm
-
-try:
-    from django.db.models.loading import get_model
-except ImportError:
-    from django.apps import apps
-    get_model = apps.get_model
+from .forms import AttachmentForm
+from .models import Attachment
 
 
 def add_url_for_obj(obj):
@@ -30,13 +25,13 @@ def add_url_for_obj(obj):
 @login_required
 def add_attachment(request, app_label, model_name, pk,
                    template_name='attachments/add.html', extra_context={}):
+
     next = request.POST.get('next', '/')
 
-    try:
-        model = get_model(app_label, model_name)
-    except LookupError:
+    if not request.user.has_perm('attachments.add_attachment'):
         return HttpResponseRedirect(next)
 
+    model = apps.get_model(app_label, model_name)
     obj = get_object_or_404(model, pk=pk)
     form = AttachmentForm(request.POST, request.FILES)
 
@@ -57,8 +52,12 @@ def add_attachment(request, app_label, model_name, pk,
 @login_required
 def delete_attachment(request, attachment_pk):
     g = get_object_or_404(Attachment, pk=attachment_pk)
-    if request.user.has_perm('delete_foreign_attachments') \
-       or request.user == g.creator:
+    if (
+        (request.user.has_perm('attachments.delete_attachment') and
+        request.user == g.creator)
+    or
+        request.user.has_perm('attachments.delete_foreign_attachments')
+    ):
         g.delete()
         messages.success(request, ugettext('Your attachment was deleted.'))
     next = request.GET.get('next') or '/'
