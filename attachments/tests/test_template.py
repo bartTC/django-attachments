@@ -52,7 +52,6 @@ class ViewTestCase(BaseTestCase):
         self.assertTrue('delete-attachment' in str(response.content))
 
     def test_delete_link_is_not_listed_for_others_attachments(self):
-        self.jon.user_permissions.remove(self.del_permission)
         self.client.login(**self.cred_jane)
         self._upload_testfile()
         self.client.login(**self.cred_jon)
