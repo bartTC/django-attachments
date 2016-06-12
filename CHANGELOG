@@ -1,6 +1,12 @@
 Changelog:
 ==========
 
+v1.0.1 (2016-06-12):
+
+    * Added finish translation.
+
+    * Minor test suite improvements.
+
 v1.0 (2016-03-19):
 
     * General code cleanup to keep compatibility with the latest Django
