@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import os
 
 from django.conf import settings
@@ -7,6 +5,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 
 def attachment_upload(instance, filename):
@@ -25,6 +24,7 @@ class AttachmentManager(models.Manager):
                            object_id=obj.pk)
 
 
+@python_2_unicode_compatible
 class Attachment(models.Model):
     objects = AttachmentManager()
 
@@ -38,15 +38,18 @@ class Attachment(models.Model):
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
     class Meta:
+        verbose_name = _("attachment")
+        verbose_name_plural = _("attachments")
         ordering = ['-created']
         permissions = (
             ('delete_foreign_attachments', _('Can delete foreign attachments')),
         )
 
-    def __unicode__(self):
-        return '{} attached {}'.format(
-            self.creator.get_username(),
-            self.attachment_file.name)
+    def __str__(self):
+        return _('{username} attached {filename}') % {
+            'username': self.creator.get_username(),
+            'filename': self.attachment_file.name
+        }
 
     @property
     def filename(self):

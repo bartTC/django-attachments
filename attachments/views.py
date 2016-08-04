@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.apps import apps
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -20,6 +18,7 @@ def add_url_for_obj(obj):
         'model_name': obj._meta.model_name,
         'pk': obj.pk
     })
+
 
 @require_POST
 @login_required
@@ -48,6 +47,7 @@ def add_attachment(request, app_label, model_name, pk,
     template_context.update(extra_context)
     return render_to_response(template_name, template_context,
                               RequestContext(request))
+
 
 @login_required
 def delete_attachment(request, attachment_pk):
