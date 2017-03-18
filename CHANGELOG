@@ -1,6 +1,10 @@
 Changelog:
 ==========
 
+(master)
+
+  * Django 1.10 compatibility and tests.
+
 v1.0.1 (2016-06-12):
 
     * Added finnish translation.
