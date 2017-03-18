@@ -3,12 +3,12 @@ from setuptools import find_packages, setup
 
 long_description = u'\n\n'.join((
     open('README.rst').read(),
-    open('CHANGELOG').read()
+    open('CHANGELOG.rst').read()
 ))
 
 setup(
     name='django-attachments',
-    version='1.0.1',
+    version='1.1',
     description='django-attachments is generic Django application to attach '
         'Files (Attachments) to any model.',
     long_description=long_description,
