@@ -61,7 +61,10 @@ Tests
 
 Run the testsuite in your local environment using::
 
-    $ python ./runtests.py
+    $ cd django-attachments/
+    $ pip intall -e .
+    $ python ./runtests.py    # Python 2.7
+    $ python3 ./runtests.py   # Python 3.5+
 
 Or use tox to test against various Django and Python versions::
 
