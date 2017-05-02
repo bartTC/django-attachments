@@ -1,1 +1,4 @@
 attachments/tests/testapp/uploads/
+*.pyc
+.idea/
+.git/

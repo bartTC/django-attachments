@@ -1,3 +1,4 @@
+# coding=utf-8
 from __future__ import unicode_literals
 
 import os
@@ -31,13 +32,20 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="created_attachments",
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="created_attachments",
         verbose_name=_('creator'))
-    attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
+    name = models.CharField(verbose_name='описание',
+                            null=True, blank=True, max_length=1024)
+    attachment_file = models.FileField(
+        _('attachment'), upload_to=attachment_upload, max_length=1024)
+    is_public = models.BooleanField('Доступен клиенту', default=False)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
     class Meta:
+        verbose_name = u'файл'
+        verbose_name_plural = u'файлы'
         ordering = ['-created']
         permissions = (
             ('delete_foreign_attachments', _('Can delete foreign attachments')),

@@ -8,6 +8,7 @@ from attachments.models import Attachment
 
 register = Library()
 
+
 @register.inclusion_tag('attachments/add_form.html', takes_context=True)
 def attachment_form(context, obj):
     """
@@ -26,6 +27,7 @@ def attachment_form(context, obj):
         return {
             'form': None,
         }
+
 
 @register.inclusion_tag('attachments/delete_link.html', takes_context=True)
 def attachment_delete_link(context, attachment):
@@ -63,6 +65,6 @@ def get_attachments_for(obj, *args, **kwargs):
             {% attachment_delete_link att %}
         {% endfor %}
 
-        {% get_attachments_for obj as "my_attachments" %}
+        {% get_attachments_for obj as my_attachments %}
     """
     return Attachment.objects.attachments_for_object(obj)
