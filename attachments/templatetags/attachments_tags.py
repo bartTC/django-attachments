@@ -1,10 +1,9 @@
-from __future__ import unicode_literals
-
-from django.template import Library, Node, Variable
-from attachments.forms import AttachmentForm
-from attachments.views import add_url_for_obj
 from django.core.urlresolvers import reverse
+from django.template import Library, Node, Variable
+
+from attachments.forms import AttachmentForm
 from attachments.models import Attachment
+from attachments.views import add_url_for_obj
 
 register = Library()
 
