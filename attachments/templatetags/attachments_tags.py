@@ -52,15 +52,9 @@ def get_attachments_for(obj, *args, **kwargs):
     """
     Resolves attachments that are attached to a given object. You can specify
     the variable name in the context the attachments are stored using the `as`
-    argument. Default context variable name is `attachments`.
+    argument.
 
     Syntax::
-
-        {% get_attachments_for obj %}
-        {% for att in attachments %}
-            {{ att }}
-            {% attachment_delete_link att %}
-        {% endfor %}
 
         {% get_attachments_for obj as "my_attachments" %}
     """
