@@ -1,5 +1,9 @@
-from django.core.urlresolvers import reverse
+import django
 from django.template import Library, Node, Variable
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 from attachments.forms import AttachmentForm
 from attachments.models import Attachment
@@ -46,8 +50,15 @@ def attachment_delete_link(context, attachment):
         }
     return {'delete_url': None}
 
+if django.VERSION < (1, 9):
+    # simple_tag in Django 1.8 doesn't have the functionality we need, so use
+    # assignment_tag instead. See:
+    # https://code.djangoproject.com/ticket/27608#comment:2
+    simple_tag = register.assignment_tag
+else:
+    simple_tag = register.simple_tag
 
-@register.assignment_tag
+@simple_tag
 def get_attachments_for(obj, *args, **kwargs):
     """
     Resolves attachments that are attached to a given object. You can specify

@@ -1,8 +1,11 @@
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 from attachments.models import Attachment
 
