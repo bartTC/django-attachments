@@ -28,11 +28,11 @@ class AttachmentManager(models.Manager):
 class Attachment(models.Model):
     objects = AttachmentManager()
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="created_attachments",
-        verbose_name=_('creator'))
+        verbose_name=_('creator'), on_delete=models.CASCADE)
     attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)

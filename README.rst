@@ -101,8 +101,8 @@ for your model objects in your frontend.
 
 1. ``get_attachments_for [object]``: Fetches the attachments for the given
    model instance. You can optionally define a variable name in which the attachment
-   list is stored in the template context. The default context variable name is
-   ``attachments`` Example::
+   list is stored in the template context (this is required in Django 1.8). If
+   you do not define a variable name, the result is printed instead.
 
    {% get_attachments_for entry as "attachments_list" %}
 
