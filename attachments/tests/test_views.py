@@ -1,3 +1,9 @@
+import os
+try:
+    from unittest import mock
+except ImportError:
+    import mock
+
 try:
     from django.urls import reverse
 except ImportError:
@@ -70,9 +76,12 @@ class ViewTestCase(BaseTestCase):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         att = Attachment.objects.first()
+        file_path = att.attachment_file.path
         del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
         self.client.get(del_url, follow=True)
         self.assertEqual(Attachment.objects.count(), 0)
+        # file on disk is still present b/c setting not specified
+        self.assertTrue(os.path.exists(file_path))
 
     def test_author_cant_delete_attachment_if_no_delete_permission(self):
         self.jon.user_permissions.remove(self.del_permission)
@@ -106,10 +115,12 @@ class ViewTestCase(BaseTestCase):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         obj1 = Attachment.objects.order_by('-created')[0]
+        path1 = obj1.attachment_file.path
 
         self.client.login(**self.cred_jane)
         self._upload_testfile()
         obj2 = Attachment.objects.order_by('-created')[0]
+        path2 = obj2.attachment_file.path
 
         self.assertNotEqual(obj1, obj2)
 
@@ -118,7 +129,50 @@ class ViewTestCase(BaseTestCase):
         self.jon.user_permissions.add(self.del_foreign_permission)
         self.client.login(**self.cred_jon)
 
-        del_url = reverse('attachments:delete', kwargs={'attachment_pk': obj2.pk,})
-        self.client.get(del_url, follow=True)
+        # explicitly set the delete setting to False to
+        # cover that branch as well
+        with self.settings(DELETE_ATTACHMENT_FILE=False):
+            del_url = reverse('attachments:delete', kwargs={'attachment_pk': obj2.pk,})
+            self.client.get(del_url, follow=True)
 
-        self.assertEqual(Attachment.objects.count(), 1)
+            self.assertEqual(Attachment.objects.count(), 1)
+            self.assertTrue(os.path.exists(path1))
+            self.assertTrue(os.path.exists(path2))
+
+    def test_delete_removes_files_from_disk_if_settings(self):
+        self.client.login(**self.cred_jon)
+        self._upload_testfile()
+        att = Attachment.objects.first()
+        file_path = att.attachment_file.path
+        with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
+            del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+            self.client.get(del_url, follow=True)
+            self.assertEqual(Attachment.objects.count(), 0)
+            self.assertFalse(os.path.exists(file_path))
+
+    def test_delete_does_not_raise_if_settings_and_file_missing(self):
+        self.client.login(**self.cred_jon)
+        self._upload_testfile()
+        att = Attachment.objects.first()
+        file_path = att.attachment_file.path
+        # remove the file before hand
+        os.remove(file_path)
+        with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
+            del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+            self.client.get(del_url, follow=True)
+            self.assertEqual(Attachment.objects.count(), 0)
+            self.assertFalse(os.path.exists(file_path))
+
+    def test_delete_does_not_raise_if_os_remove_raises(self):
+        self.client.login(**self.cred_jon)
+        self._upload_testfile()
+        att = Attachment.objects.first()
+
+        with mock.patch('attachments.views.os.remove') as _mock:
+            _mock.side_effect = OSError('Test file does not exist')
+            with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
+                del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+                self.client.get(del_url, follow=True)
+                self.assertEqual(Attachment.objects.count(), 0)
+                # NOTE: we don't assert the file path here because
+                # the mock which raises will not actually delete it
