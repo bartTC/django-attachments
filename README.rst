@@ -45,6 +45,10 @@ Installation:
 6. Set ``DELETE_ATTACHMENTS_FROM_DISK`` to ``True`` if you want to remove
    files from disk when Attachment objects are removed!
 
+7. Configure ``FILE_UPLOAD_MAX_SIZE`` (optional). This is the maximum size in
+   bytes before raising form validation errors. If not set there is no restriction
+   on file size.
+
 Mind that you serve files!
 ==========================
 
