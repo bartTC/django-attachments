@@ -1,6 +1,7 @@
 {% load attachments_tags %}
 
 <h1>{{ object.title }}</h1>
+<h2>Object has {% attachments_count object %} attachments</h2>
 
 {% get_attachments_for object as attachments_list %}
 {% for att in attachments_list %}
