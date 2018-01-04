@@ -50,6 +50,15 @@ def attachment_delete_link(context, attachment):
         }
     return {'delete_url': None}
 
+@register.simple_tag
+def attachments_count(obj):
+    """
+    Counts attachments that are attached to a given object.
+
+        {% attachments_count obj %}
+    """
+    return Attachment.objects.attachments_for_object(obj).count()
+
 if django.VERSION < (1, 9):
     # simple_tag in Django 1.8 doesn't have the functionality we need, so use
     # assignment_tag instead. See:
