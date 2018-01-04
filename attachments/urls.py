@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from .views import add_attachment, delete_attachment
 
 app_name = 'attachments'

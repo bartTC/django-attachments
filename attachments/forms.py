@@ -1,7 +1,7 @@
-from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.contenttypes.models import ContentType
 from attachments.models import Attachment
+from django import forms
+from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import ugettext_lazy as _
 
 
 class AttachmentForm(forms.ModelForm):
