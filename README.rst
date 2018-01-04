@@ -115,14 +115,19 @@ for your model objects in your frontend.
 
    {% get_attachments_for entry as "attachments_list" %}
 
-2. ``attachment_form``: Renders a upload form to add attachments for the given
+2. ``attachments_count [object]``: Counts the attachments for the given
+   model instance and returns an int::
+
+   {% attachments_count entry %}
+
+3. ``attachment_form``: Renders a upload form to add attachments for the given
    model instance. Example::
 
     {% attachment_form [object] %}
 
    It returns an empty string if the current user is not logged in.
 
-3. ``attachment_delete_link``: Renders a link to the delete view for the given
+4. ``attachment_delete_link``: Renders a link to the delete view for the given
    *attachment*. Example::
 
     {% for att in attachments_list %}
@@ -141,6 +146,7 @@ Quick Example:
     {% load attachments_tags %}
     {% get_attachments_for entry as my_entry_attachments %}
 
+    <span>Object has {% attachments_count entry %} attachments</span>
     {% if my_entry_attachments %}
     <ul>
     {% for attachment in my_entry_attachments %}
