@@ -33,10 +33,10 @@ Installation:
 5. Grant the user some permissions:
 
    * For **adding attachments** grant the user (or group) the permission
-     ``attachments.add_attachments``.
+     ``attachments.add_attachment``.
 
    * For **deleting attachments** grant the user (or group) the permission
-     ``attachments.delete_attachments``. This allows the user to delete their
+     ``attachments.delete_attachment``. This allows the user to delete their
      attachments only.
 
    * For **deleting foreign attachments** (attachments by other users) grant
