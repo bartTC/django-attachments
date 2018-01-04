@@ -63,12 +63,21 @@ Run the testsuite in your local environment using::
 
     $ cd django-attachments/
     $ pip intall -e .
-    $ python ./runtests.py    # Python 2.7
-    $ python3 ./runtests.py   # Python 3.5+
+    $ ./runtests.py
 
 Or use tox to test against various Django and Python versions::
 
     $ tox -r
+
+
+You can also invoke the test suite or other 'manage.py' commands by calling
+the ``django-admin`` tool with the test app settings::
+
+    $ cd django-attachments/
+    $ pip intall -e .
+    $ DJANGO_SETTINGS_MODULE=attachments.tests.testapp.settings django-admin
+    $ DJANGO_SETTINGS_MODULE=attachments.tests.testapp.settings django-admin test
+    $ DJANGO_SETTINGS_MODULE=attachments.tests.testapp.settings django-admin makemigrations --dry-run
 
 Usage:
 ======
