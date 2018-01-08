@@ -24,7 +24,7 @@ before_install:
   - pip install codecov
 
 install:
-  - pip install django==$DJANGO
+  - pip install six django==$DJANGO
   - pip install -e .
 
 script:
