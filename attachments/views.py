@@ -1,4 +1,6 @@
+import os
 from django.apps import apps
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -23,6 +25,12 @@ def add_url_for_obj(obj):
         'pk': obj.pk
     })
 
+def remove_file_from_disk(f):
+    if getattr(settings, 'DELETE_ATTACHMENTS_FROM_DISK', False) and os.path.exists(f.path):
+        try:
+            os.remove(f.path)
+        except:
+            pass
 
 @require_POST
 @login_required
@@ -62,6 +70,7 @@ def delete_attachment(request, attachment_pk):
     or
         request.user.has_perm('attachments.delete_foreign_attachments')
     ):
+        remove_file_from_disk(g.attachment_file)
         g.delete()
         messages.success(request, ugettext('Your attachment was deleted.'))
     next = request.GET.get('next') or '/'

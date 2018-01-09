@@ -42,6 +42,8 @@ Installation:
    * For **deleting foreign attachments** (attachments by other users) grant
      the user the permission ``attachments.delete_foreign_attachments``.
 
+6. Set ``DELETE_ATTACHMENTS_FROM_DISK`` to ``True`` if you want to remove
+   files from disk when Attachment objects are removed!
 
 Mind that you serve files!
 ==========================
