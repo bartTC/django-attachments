@@ -1,6 +1,17 @@
 Changelog:
 ==========
 
+v1.3 (2018-01-09):
+------------------
+
+- Added a missing database migration.
+- New templatetag ``attachments_count``.
+- New setting ``DELETE_ATTACHMENTS_FROM_DISK`` to delete attachment files
+  if the attachment model is deleted.
+- New setting ``FILE_UPLOAD_MAX_SIZE`` to deny file uploads exceeding this
+  value.
+
+
 v1.2 (2017-12-15):
 ------------------
 
