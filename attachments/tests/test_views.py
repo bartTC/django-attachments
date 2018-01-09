@@ -43,6 +43,24 @@ class ViewTestCase(BaseTestCase):
         self.assertEqual(Attachment.objects.count(), 0)
         self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
 
+    def test_upload_size_less_than_limit(self):
+        # NOTE: in all of the other tests there's no limit specified
+        # so they will cover the branch where the setting is missing
+        with self.settings(FILE_UPLOAD_MAX_SIZE=1024):
+            self.client.login(**self.cred_jon)
+            self._upload_testfile()
+            self.assertEqual(Attachment.objects.count(), 1)
+            self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 1)
+
+    def test_upload_size_more_than_limit(self):
+        # we set a limit of 1 byte b/c the file used for testing
+        # is very small
+        with self.settings(FILE_UPLOAD_MAX_SIZE=1):
+            self.client.login(**self.cred_jon)
+            self._upload_testfile()
+            self.assertEqual(Attachment.objects.count(), 0)
+            self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
+
     def test_upload_without_permission(self):
         """
         Remove the 'add permission' and try to upload a file.
