@@ -25,7 +25,7 @@ before_install:
 
 install:
   - pip install six django==$DJANGO
-  - pip install -e .
+  - pip install -e .[tests]
 
 script:
   - coverage run runtests.py
