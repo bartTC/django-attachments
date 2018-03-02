@@ -46,10 +46,10 @@ class Attachment(models.Model):
         )
 
     def __str__(self):
-        return _('{username} attached {filename}') % {
-            'username': self.creator.get_username(),
-            'filename': self.attachment_file.name
-        }
+        return _('{username} attached {filename}').format(
+            username=self.creator.get_username(),
+            filename=self.attachment_file.name
+        )
 
     @property
     def filename(self):
