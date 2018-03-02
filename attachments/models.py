@@ -46,7 +46,7 @@ class Attachment(models.Model):
         )
 
     def __str__(self):
-        return _('{username} attached {filename}') % {
+        return _('%(username)s attached %(filename)s') % {
             'username': self.creator.get_username(),
             'filename': self.attachment_file.name
         }
