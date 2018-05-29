@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-29 16:35+0200\n"
+"PO-Revision-Date: 2018-05-29 16:39+0200\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Mario Orlandi <morlandi@brainstorm.it>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.7\n"
+
+#: apps.py:7
+msgid "Attachments"
+msgstr "Allegati"
+
+#: forms.py:13
+#, python-brace-format
+msgid "File exceeds maximum size of {size}"
+msgstr "Il file supera le dimensioni massime di {size}"
+
+#: forms.py:18
+msgid "Upload attachment"
+msgstr "Invia allegato"
+
+#: models.py:35
+msgid "creator"
+msgstr "autore"
+
+#: models.py:36 models.py:41
+msgid "attachment"
+msgstr "allegato"
+
+#: models.py:37
+msgid "created"
+msgstr "creato il"
+
+#: models.py:38
+msgid "modified"
+msgstr "modificato il"
+
+#: models.py:42
+msgid "attachments"
+msgstr "allegati"
+
+#: models.py:45
+msgid "Can delete foreign attachments"
+msgstr "Può eliminare gli allegati esterni"
+
+#: models.py:49
+#, python-brace-format
+msgid "{username} attached {filename}"
+msgstr "{username} ha allegato {filename}"
+
+#: templates/attachments/add_form.html:8
+msgid "Add attachment"
+msgstr "Aggiungi allegato"
+
+#: templates/attachments/delete_link.html:2
+msgid "Delete attachment"
+msgstr "Elimina allegato"
+
+#: views.py:51
+msgid "Your attachment was uploaded."
+msgstr "L'allegato è stato inviato."
+
+#: views.py:75
+msgid "Your attachment was deleted."
+msgstr "L'allegato è stato eliminato."
