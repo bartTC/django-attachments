@@ -1,5 +1,7 @@
 import os
 
+DEBUG = True
+
 TESTAPP_DIR = os.path.abspath(os.path.dirname(__file__))
 
 SECRET_KEY = 'testsecretkey'
@@ -7,7 +9,7 @@ SECRET_KEY = 'testsecretkey'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:',
+            'NAME': 'tests.db',
         }
     }
 

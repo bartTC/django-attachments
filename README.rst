@@ -65,25 +65,23 @@ configuration this would look like::
 Tests
 =====
 
-Run the testsuite in your local environment using::
+Run the testsuite in your local environment using ``pipenv``::
 
     $ cd django-attachments/
-    $ pip intall -e .[tests]
-    $ ./runtests.py
+    $ pipenv install
+    $ pipenv run ./runtests.py
 
 Or use tox to test against various Django and Python versions::
 
     $ tox -r
 
-
 You can also invoke the test suite or other 'manage.py' commands by calling
 the ``django-admin`` tool with the test app settings::
 
     $ cd django-attachments/
-    $ pip intall -e .[tests]
-    $ DJANGO_SETTINGS_MODULE=attachments.tests.testapp.settings django-admin
-    $ DJANGO_SETTINGS_MODULE=attachments.tests.testapp.settings django-admin test
-    $ DJANGO_SETTINGS_MODULE=attachments.tests.testapp.settings django-admin makemigrations --dry-run
+    $ pipenv install
+    $ pipenv run django-admin.py migrate
+    $ pipenv run django-admin.py runserver
 
 Usage:
 ======
