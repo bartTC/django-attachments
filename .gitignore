@@ -1,2 +1,5 @@
 attachments/tests/testapp/uploads/
+*.egg-info/
+__pycache__
+*.pyc
 tests.db
