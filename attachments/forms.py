@@ -1,9 +1,12 @@
-from attachments.models import Attachment
+from __future__ import unicode_literals
+
 from django import forms
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
-from django.template.defaultfilters import filesizeformat
 from django.contrib.contenttypes.models import ContentType
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
+
+from attachments.models import Attachment
 
 
 def validate_max_size(data):

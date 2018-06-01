@@ -1,5 +1,8 @@
-from attachments.models import Attachment
+from __future__ import unicode_literals
+
 from django.contrib.contenttypes.admin import GenericStackedInline
+
+from attachments.models import Attachment
 
 
 class AttachmentInlines(GenericStackedInline):

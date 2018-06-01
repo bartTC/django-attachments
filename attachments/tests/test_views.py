@@ -1,4 +1,7 @@
+from __future__ import unicode_literals
+
 import os
+
 try:
     from unittest import mock
 except ImportError:
