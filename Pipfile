@@ -4,8 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-"e1839a8" = {path = ".", editable = true}
+"e1839a8" = {path = ".", extras = ["tests"], editable = true}
 
 [dev-packages]
 
