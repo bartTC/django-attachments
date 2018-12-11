@@ -1,4 +1,6 @@
+import os
 import django
+from django.template.defaultfilters import filesizeformat
 from django.template import Library, Node, Variable
 try:
     from django.urls import reverse
@@ -79,3 +81,21 @@ def get_attachments_for(obj, *args, **kwargs):
         {% get_attachments_for obj as "my_attachments" %}
     """
     return Attachment.objects.attachments_for_object(obj)
+
+@register.filter
+def attachment_size_display(obj):
+    text = ''
+    try:
+        text = filesizeformat(obj.attachment_file.size)
+    except:
+        text = ''
+    return text
+
+@register.filter
+def attachment_name_display(obj):
+    text = ''
+    try:
+        text = os.path.split(obj.attachment_file.name)[-1]
+    except:
+        text = ''
+    return text
