@@ -11,4 +11,4 @@ exclude_lines =
     def __repr__
 
 [html]
-directory = /tmp/coverage_html_report
+directory = /tmp/coverage_report/attachments

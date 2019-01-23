@@ -1,34 +1,20 @@
 language: python
 
-services:
-  - memcached
-
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-
-env:
-  - DJANGO=1.8.*
-  - DJANGO=1.9.*
-  - DJANGO=1.10.*
-  - DJANGO=1.11.*
-  - DJANGO=2.0.*
-
+# https://github.com/travis-ci/travis-ci/issues/9815#issuecomment-411073985
 matrix:
-  exclude:
-    - python: "2.7"
-      env: DJANGO=2.0.*
+  include:
+    - python: 2.7
+    - python: 3.4
+    - python: 3.5
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
-before_install:
-  - pip install codecov
+install: pip install tox-travis coverage codacy-coverage
 
-install:
-  - pip install six django==$DJANGO
-  - pip install -e .[tests]
-
-script:
-  - coverage run runtests.py
+script: tox
 
 after_success:
-  - codecov
+  - coverage xml
+  - python-codacy-coverage -r coverage.xml
