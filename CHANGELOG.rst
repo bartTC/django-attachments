@@ -1,6 +1,12 @@
 Changelog:
 ==========
 
+v1.3.1 (2019-01-24):
+--------------------
+
+- Django 2.1 and Python 3.7 support
+- General code cleanup
+
 v1.3 (2018-01-09):
 ------------------
 
@@ -10,7 +16,6 @@ v1.3 (2018-01-09):
   if the attachment model is deleted.
 - New setting ``FILE_UPLOAD_MAX_SIZE`` to deny file uploads exceeding this
   value.
-
 
 v1.2 (2017-12-15):
 ------------------
