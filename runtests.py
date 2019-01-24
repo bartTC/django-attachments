@@ -6,6 +6,7 @@ from django import setup
 from django.conf import settings
 from django.test.runner import DiscoverRunner
 
+
 def runtests(*test_args):
     # Setup settings
     if not settings.configured:
@@ -18,6 +19,7 @@ def runtests(*test_args):
     failures = test_runner.run_tests(['attachments'])
     if failures:
         sys.exit(failures)
+
 
 if __name__ == '__main__':
     runtests(*sys.argv[1:])

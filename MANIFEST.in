@@ -1,5 +1,9 @@
+include *.lock
+include *.py
+include *.rst
 include LICENSE
-include README.rst
-include CHANGELOG.rst
-include runtests.py
-recursive-include attachments/templates *
+include Pipfile
+include tox.ini
+recursive-include attachments *.html
+recursive-include attachments *.po
+recursive-include attachments *.transifex

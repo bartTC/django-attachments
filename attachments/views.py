@@ -52,9 +52,6 @@ def add_attachment(
     template_name='attachments/add.html',
     extra_context=None,
 ):
-    if not extra_context:
-        extra_context = {}
-
     next_ = request.POST.get('next_', '/')
 
     if not request.user.has_perm('attachments.add_attachment'):
@@ -74,7 +71,8 @@ def add_attachment(
         'form_url': add_url_for_obj(obj),
         'next': next_,
     }
-    template_context.update(extra_context)
+    template_context.update(extra_context or {})
+
     return render_to_response(
         template_name, template_context, RequestContext(request)
     )

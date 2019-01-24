@@ -4,11 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-e1839a8 = {path = ".",extras = ["tests"],editable = true}
+django-attachments = {editable = true,path = "."}
 
 [dev-packages]
 isort = "*"
 black = "*"
+coverage = "*"
 
 [scripts]
 cleanup = "sh -c \"black --skip-string-normalization --line-length=80 --exclude='/(migrations)/' attachments && isort -rc attachments\""
