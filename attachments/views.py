@@ -38,7 +38,7 @@ def remove_file_from_disk(f):
     ) and os.path.exists(f.path):
         try:
             os.remove(f.path)
-        except (PermissionError, OSError):
+        except OSError:
             pass
 
 
