@@ -16,14 +16,14 @@ def attachment_upload(instance, filename):
         app=instance.content_object._meta.app_label,
         model=instance.content_object._meta.object_name.lower(),
         pk=instance.content_object.pk,
-        filename=filename)
+        filename=filename,
+    )
 
 
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
         object_type = ContentType.objects.get_for_model(obj)
-        return self.filter(content_type__pk=object_type.id,
-                           object_id=obj.pk)
+        return self.filter(content_type__pk=object_type.id, object_id=obj.pk)
 
 
 @python_2_unicode_compatible
@@ -33,9 +33,15 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="created_attachments",
-        verbose_name=_('creator'), on_delete=models.CASCADE)
-    attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="created_attachments",
+        verbose_name=_('creator'),
+        on_delete=models.CASCADE,
+    )
+    attachment_file = models.FileField(
+        _('attachment'), upload_to=attachment_upload
+    )
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
@@ -50,7 +56,7 @@ class Attachment(models.Model):
     def __str__(self):
         return _('{username} attached {filename}').format(
             username=self.creator.get_username(),
-            filename=self.attachment_file.name
+            filename=self.attachment_file.name,
         )
 
     @property

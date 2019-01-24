@@ -12,33 +12,47 @@ from django.template.context import RequestContext
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_POST
 
+from .forms import AttachmentForm
+from .models import Attachment
+
 try:
     from django.urls import reverse
 except ImportError:
     from django.core.urlresolvers import reverse
 
-from .forms import AttachmentForm
-from .models import Attachment
 
 
 def add_url_for_obj(obj):
-    return reverse('attachments:add', kwargs={
-        'app_label': obj._meta.app_label,
-        'model_name': obj._meta.model_name,
-        'pk': obj.pk
-    })
+    return reverse(
+        'attachments:add',
+        kwargs={
+            'app_label': obj._meta.app_label,
+            'model_name': obj._meta.model_name,
+            'pk': obj.pk,
+        },
+    )
+
 
 def remove_file_from_disk(f):
-    if getattr(settings, 'DELETE_ATTACHMENTS_FROM_DISK', False) and os.path.exists(f.path):
+    if getattr(
+        settings, 'DELETE_ATTACHMENTS_FROM_DISK', False
+    ) and os.path.exists(f.path):
         try:
             os.remove(f.path)
         except:
             pass
 
+
 @require_POST
 @login_required
-def add_attachment(request, app_label, model_name, pk,
-                   template_name='attachments/add.html', extra_context={}):
+def add_attachment(
+    request,
+    app_label,
+    model_name,
+    pk,
+    template_name='attachments/add.html',
+    extra_context={},
+):
 
     next = request.POST.get('next', '/')
 
@@ -60,19 +74,18 @@ def add_attachment(request, app_label, model_name, pk,
         'next': next,
     }
     template_context.update(extra_context)
-    return render_to_response(template_name, template_context,
-                              RequestContext(request))
+    return render_to_response(
+        template_name, template_context, RequestContext(request)
+    )
 
 
 @login_required
 def delete_attachment(request, attachment_pk):
     g = get_object_or_404(Attachment, pk=attachment_pk)
     if (
-        (request.user.has_perm('attachments.delete_attachment') and
-        request.user == g.creator)
-    or
-        request.user.has_perm('attachments.delete_foreign_attachments')
-    ):
+        request.user.has_perm('attachments.delete_attachment')
+        and request.user == g.creator
+    ) or request.user.has_perm('attachments.delete_foreign_attachments'):
         remove_file_from_disk(g.attachment_file)
         g.delete()
         messages.success(request, ugettext('Your attachment was deleted.'))

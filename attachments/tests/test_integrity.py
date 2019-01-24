@@ -1,5 +1,6 @@
 from django.core.management import call_command
 from django.test import TestCase
+
 from six import StringIO
 
 try:
@@ -18,5 +19,7 @@ class IntegrityTestCase(TestCase):
         Make sure all model changes are reflected with Django migrations.
         """
         output = StringIO()
-        call_command('makemigrations', '--dry-run', interactive=False, stdout=output)
+        call_command(
+            'makemigrations', '--dry-run', interactive=False, stdout=output
+        )
         self.assertTrue('No changes detected' in output.getvalue())

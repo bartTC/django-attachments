@@ -2,6 +2,10 @@ from __future__ import unicode_literals
 
 import os
 
+from attachments.models import Attachment
+
+from .base import BaseTestCase
+
 try:
     from unittest import mock
 except ImportError:
@@ -12,39 +16,49 @@ try:
 except ImportError:
     from django.core.urlresolvers import reverse
 
-from attachments.models import Attachment
 
-from .base import BaseTestCase
 
 
 class ViewTestCase(BaseTestCase):
     def test_empty_post_to_form_wont_create_attachment(self):
-        add_url = reverse('attachments:add', kwargs={
-            'app_label': 'testapp',
-            'model_name': 'testmodel',
-            'pk': self.obj.pk,
-        })
+        add_url = reverse(
+            'attachments:add',
+            kwargs={
+                'app_label': 'testapp',
+                'model_name': 'testmodel',
+                'pk': self.obj.pk,
+            },
+        )
         response = self.client.post(add_url)
         self.assertEqual(302, response.status_code)
         self.assertEqual(Attachment.objects.count(), 0)
-        self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 0
+        )
 
     def test_invalid_model_wont_fail(self):
-        add_url = reverse('attachments:add', kwargs={
-            'app_label': 'thisdoes',
-            'model_name': 'notexist',
-            'pk': self.obj.pk,
-        })
+        add_url = reverse(
+            'attachments:add',
+            kwargs={
+                'app_label': 'thisdoes',
+                'model_name': 'notexist',
+                'pk': self.obj.pk,
+            },
+        )
         response = self.client.post(add_url)
         self.assertEqual(302, response.status_code)
         self.assertEqual(Attachment.objects.count(), 0)
-        self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 0
+        )
 
     def test_invalid_attachment_wont_fail(self):
         self.client.login(**self.cred_jon)
         self._upload_testfile(file_obj='Not a UploadedFile object')
         self.assertEqual(Attachment.objects.count(), 0)
-        self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 0
+        )
 
     def test_upload_size_less_than_limit(self):
         # NOTE: in all of the other tests there's no limit specified
@@ -53,7 +67,9 @@ class ViewTestCase(BaseTestCase):
             self.client.login(**self.cred_jon)
             self._upload_testfile()
             self.assertEqual(Attachment.objects.count(), 1)
-            self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 1)
+            self.assertEqual(
+                Attachment.objects.attachments_for_object(self.obj).count(), 1
+            )
 
     def test_upload_size_more_than_limit(self):
         # we set a limit of 1 byte b/c the file used for testing
@@ -62,7 +78,9 @@ class ViewTestCase(BaseTestCase):
             self.client.login(**self.cred_jon)
             self._upload_testfile()
             self.assertEqual(Attachment.objects.count(), 0)
-            self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
+            self.assertEqual(
+                Attachment.objects.attachments_for_object(self.obj).count(), 0
+            )
 
     def test_upload_without_permission(self):
         """
@@ -73,32 +91,40 @@ class ViewTestCase(BaseTestCase):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         self.assertEqual(Attachment.objects.count(), 0)
-        self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 0)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 0
+        )
 
     def test_upload_with_permission(self):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         self.assertEqual(Attachment.objects.count(), 1)
-        self.assertEqual(Attachment.objects.attachments_for_object(self.obj).count(), 1)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 1
+        )
 
     def test_unauthed_user_cant_delete_attachment(self):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         att = Attachment.objects.first()
-        del_url = reverse('attachments:delete',
-                          kwargs={'attachment_pk': att.pk,})
+        del_url = reverse(
+            'attachments:delete', kwargs={'attachment_pk': att.pk}
+        )
         self.client.logout()
         self.client.get(del_url, follow=True)
         self.assertEqual(Attachment.objects.count(), 1)
         self.assertEqual(
-            Attachment.objects.attachments_for_object(self.obj).count(), 1)
+            Attachment.objects.attachments_for_object(self.obj).count(), 1
+        )
 
     def test_author_can_delete_attachment(self):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         att = Attachment.objects.first()
         file_path = att.attachment_file.path
-        del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+        del_url = reverse(
+            'attachments:delete', kwargs={'attachment_pk': att.pk}
+        )
         self.client.get(del_url, follow=True)
         self.assertEqual(Attachment.objects.count(), 0)
         # file on disk is still present b/c setting not specified
@@ -110,7 +136,9 @@ class ViewTestCase(BaseTestCase):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
         att = Attachment.objects.first()
-        del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+        del_url = reverse(
+            'attachments:delete', kwargs={'attachment_pk': att.pk}
+        )
         self.client.get(del_url, follow=True)
         self.assertEqual(Attachment.objects.count(), 1)
 
@@ -127,7 +155,9 @@ class ViewTestCase(BaseTestCase):
 
         # Jon can't delete Janes attachment
         self.client.login(**self.cred_jon)
-        del_url = reverse('attachments:delete', kwargs={'attachment_pk': obj2.pk,})
+        del_url = reverse(
+            'attachments:delete', kwargs={'attachment_pk': obj2.pk}
+        )
         self.client.get(del_url, follow=True)
 
         self.assertEqual(Attachment.objects.count(), 2)
@@ -153,7 +183,9 @@ class ViewTestCase(BaseTestCase):
         # explicitly set the delete setting to False to
         # cover that branch as well
         with self.settings(DELETE_ATTACHMENT_FILE=False):
-            del_url = reverse('attachments:delete', kwargs={'attachment_pk': obj2.pk,})
+            del_url = reverse(
+                'attachments:delete', kwargs={'attachment_pk': obj2.pk}
+            )
             self.client.get(del_url, follow=True)
 
             self.assertEqual(Attachment.objects.count(), 1)
@@ -166,7 +198,9 @@ class ViewTestCase(BaseTestCase):
         att = Attachment.objects.first()
         file_path = att.attachment_file.path
         with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
-            del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+            del_url = reverse(
+                'attachments:delete', kwargs={'attachment_pk': att.pk}
+            )
             self.client.get(del_url, follow=True)
             self.assertEqual(Attachment.objects.count(), 0)
             self.assertFalse(os.path.exists(file_path))
@@ -179,7 +213,9 @@ class ViewTestCase(BaseTestCase):
         # remove the file before hand
         os.remove(file_path)
         with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
-            del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+            del_url = reverse(
+                'attachments:delete', kwargs={'attachment_pk': att.pk}
+            )
             self.client.get(del_url, follow=True)
             self.assertEqual(Attachment.objects.count(), 0)
             self.assertFalse(os.path.exists(file_path))
@@ -192,7 +228,9 @@ class ViewTestCase(BaseTestCase):
         with mock.patch('attachments.views.os.remove') as _mock:
             _mock.side_effect = OSError('Test file does not exist')
             with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
-                del_url = reverse('attachments:delete', kwargs={'attachment_pk': att.pk,})
+                del_url = reverse(
+                    'attachments:delete', kwargs={'attachment_pk': att.pk}
+                )
                 self.client.get(del_url, follow=True)
                 self.assertEqual(Attachment.objects.count(), 0)
                 # NOTE: we don't assert the file path here because

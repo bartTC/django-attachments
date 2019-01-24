@@ -7,11 +7,8 @@ TESTAPP_DIR = os.path.abspath(os.path.dirname(__file__))
 SECRET_KEY = 'testsecretkey'
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'tests.db',
-        }
-    }
+    'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'tests.db'}
+}
 
 MEDIA_ROOT = os.path.join(TESTAPP_DIR, 'uploads')
 ROOT_URLCONF = 'attachments.tests.testapp.urls'
@@ -41,9 +38,7 @@ MIDDLEWARE_CLASSES = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(TESTAPP_DIR, 'templates'),
-        ],
+        'DIRS': [os.path.join(TESTAPP_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,6 +47,6 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
             ]
-        }
+        },
     }
 ]

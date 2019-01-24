@@ -1,15 +1,18 @@
 import django
 from django.template import Library, Node, Variable
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
 
 from attachments.forms import AttachmentForm
 from attachments.models import Attachment
 from attachments.views import add_url_for_obj
 
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
+
+
 register = Library()
+
 
 @register.inclusion_tag('attachments/add_form.html', takes_context=True)
 def attachment_form(context, obj):
@@ -26,9 +29,8 @@ def attachment_form(context, obj):
             'next': context.request.build_absolute_uri(),
         }
     else:
-        return {
-            'form': None,
-        }
+        return {'form': None}
+
 
 @register.inclusion_tag('attachments/delete_link.html', takes_context=True)
 def attachment_delete_link(context, attachment):
@@ -41,14 +43,18 @@ def attachment_delete_link(context, attachment):
     ``attachments.delete_foreign_attachments`` which allows him to delete all
     attachments.
     """
-    if (context['user'].has_perm('attachments.delete_foreign_attachments')
-    or (context['user'] == attachment.creator and
-        context['user'].has_perm('attachments.delete_attachment'))):
+    if context['user'].has_perm('attachments.delete_foreign_attachments') or (
+        context['user'] == attachment.creator
+        and context['user'].has_perm('attachments.delete_attachment')
+    ):
         return {
             'next': context.request.build_absolute_uri(),
-            'delete_url': reverse('attachments:delete', kwargs={'attachment_pk': attachment.pk})
+            'delete_url': reverse(
+                'attachments:delete', kwargs={'attachment_pk': attachment.pk}
+            ),
         }
     return {'delete_url': None}
+
 
 @register.simple_tag
 def attachments_count(obj):
@@ -59,6 +65,7 @@ def attachments_count(obj):
     """
     return Attachment.objects.attachments_for_object(obj).count()
 
+
 if django.VERSION < (1, 9):
     # simple_tag in Django 1.8 doesn't have the functionality we need, so use
     # assignment_tag instead. See:
@@ -66,6 +73,7 @@ if django.VERSION < (1, 9):
     simple_tag = register.assignment_tag
 else:
     simple_tag = register.simple_tag
+
 
 @simple_tag
 def get_attachments_for(obj, *args, **kwargs):
