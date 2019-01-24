@@ -21,7 +21,6 @@ except ImportError:
     from django.core.urlresolvers import reverse
 
 
-
 def add_url_for_obj(obj):
     return reverse(
         'attachments:add',
@@ -39,7 +38,7 @@ def remove_file_from_disk(f):
     ) and os.path.exists(f.path):
         try:
             os.remove(f.path)
-        except:
+        except (PermissionError, OSError):
             pass
 
 
@@ -51,13 +50,15 @@ def add_attachment(
     model_name,
     pk,
     template_name='attachments/add.html',
-    extra_context={},
+    extra_context=None,
 ):
+    if not extra_context:
+        extra_context = {}
 
-    next = request.POST.get('next', '/')
+    next_ = request.POST.get('next_', '/')
 
     if not request.user.has_perm('attachments.add_attachment'):
-        return HttpResponseRedirect(next)
+        return HttpResponseRedirect(next_)
 
     model = apps.get_model(app_label, model_name)
     obj = get_object_or_404(model, pk=pk)
@@ -66,12 +67,12 @@ def add_attachment(
     if form.is_valid():
         form.save(request, obj)
         messages.success(request, ugettext('Your attachment was uploaded.'))
-        return HttpResponseRedirect(next)
+        return HttpResponseRedirect(next_)
 
     template_context = {
         'form': form,
         'form_url': add_url_for_obj(obj),
-        'next': next,
+        'next': next_,
     }
     template_context.update(extra_context)
     return render_to_response(
@@ -89,5 +90,5 @@ def delete_attachment(request, attachment_pk):
         remove_file_from_disk(g.attachment_file)
         g.delete()
         messages.success(request, ugettext('Your attachment was deleted.'))
-    next = request.GET.get('next') or '/'
-    return HttpResponseRedirect(next)
+    next_ = request.GET.get('next') or '/'
+    return HttpResponseRedirect(next_)
