@@ -4,9 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-"e1839a8" = {path = ".", extras = ["tests"], editable = true}
+e1839a8 = {path = ".",extras = ["tests"],editable = true}
 
 [dev-packages]
+isort = "*"
+black = "*"
 
-[requires]
-python_version = "3.6"
+[scripts]
+cleanup = "sh -c \"black --skip-string-normalization --line-length=80 attachments && isort -rc attachments\""
+
+[pipenv]
+allow_prereleases = true
