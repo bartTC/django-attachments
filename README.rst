@@ -1,8 +1,15 @@
+.. image:: https://badge.fury.io/py/django-attachments.svg
+    :target: https://badge.fury.io/py/django-attachments
+
 .. image:: https://travis-ci.org/bartTC/django-attachments.svg?branch=master
     :target: https://travis-ci.org/bartTC/django-attachments
 
-.. image:: https://codecov.io/github/bartTC/django-attachments/coverage.svg?branch=master
-    :target: https://codecov.io/github/bartTC/django-attachments?branch=master
+.. image:: https://api.codacy.com/project/badge/Grade/e13db6df2a2148b08c662798642aa611
+    :alt: Codacy Badge
+    :target: https://app.codacy.com/app/bartTC/django-attachments
+
+.. image:: https://api.codacy.com/project/badge/Coverage/e13db6df2a2148b08c662798642aa611
+    :target: https://www.codacy.com/app/bartTC/django-attachments
 
 ==================
 django-attachments
