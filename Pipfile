@@ -11,7 +11,7 @@ isort = "*"
 black = "*"
 
 [scripts]
-cleanup = "sh -c \"black --skip-string-normalization --line-length=80 attachments && isort -rc attachments\""
+cleanup = "sh -c \"black --skip-string-normalization --line-length=80 --exclude='/(migrations)/' attachments && isort -rc attachments\""
 
 [pipenv]
 allow_prereleases = true
