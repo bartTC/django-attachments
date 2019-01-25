@@ -1,11 +1,7 @@
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
-from attachments.models import Attachment
+from django.urls import reverse
 
 from .base import BaseTestCase
+from ..models import Attachment
 
 
 class ViewTestCase(BaseTestCase):

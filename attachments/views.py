@@ -9,16 +9,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
+from django.urls import reverse
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_POST
 
 from .forms import AttachmentForm
 from .models import Attachment
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
 
 
 def add_url_for_obj(obj):

@@ -1,22 +1,10 @@
-from __future__ import unicode_literals
-
 import os
 
-from attachments.models import Attachment
+import mock
+from django.urls import reverse
 
 from .base import BaseTestCase
-
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
-
+from ..models import Attachment
 
 
 class ViewTestCase(BaseTestCase):

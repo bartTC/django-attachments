@@ -1,11 +1,16 @@
 Changelog:
 ==========
 
+(master)
+--------
+
+- Dropped Support for Django <=1.10.
+
 v1.3.1 (2019-01-24):
 --------------------
 
-- Django 2.1 and Python 3.7 support
-- General code cleanup
+- Django 2.1 and Python 3.7 support.
+- General code cleanup.
 
 v1.3 (2018-01-09):
 ------------------

@@ -5,17 +5,10 @@ from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-
-from attachments.models import Attachment
+from django.urls import reverse
 
 from .testapp.models import TestModel
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
-
+from ..models import Attachment
 
 
 class BaseTestCase(TestCase):

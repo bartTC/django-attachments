@@ -3,11 +3,6 @@ from django.test import TestCase
 
 from six import StringIO
 
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
 
 class IntegrityTestCase(TestCase):
     """
