@@ -1,10 +1,11 @@
 import os
 
-import mock
 from django.urls import reverse
 
-from .base import BaseTestCase
+import mock
+
 from ..models import Attachment
+from .base import BaseTestCase
 
 
 class ViewTestCase(BaseTestCase):

@@ -1,7 +1,7 @@
 from django.urls import reverse
 
-from .base import BaseTestCase
 from ..models import Attachment
+from .base import BaseTestCase
 
 
 class ViewTestCase(BaseTestCase):
