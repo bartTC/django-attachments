@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 
-from attachments.models import Attachment
+from .models import Attachment
 
 
 def validate_max_size(data):

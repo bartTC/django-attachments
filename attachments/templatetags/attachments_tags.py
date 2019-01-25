@@ -53,7 +53,7 @@ def attachment_delete_link(context, attachment):
 @register.simple_tag
 def attachments_count(obj):
     """
-    Counts attachments that are attached to a given object.
+    Counts attachments that are attached to a given object::
 
         {% attachments_count obj %}
     """

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import url
 
-from attachments.views import add_attachment, delete_attachment
+from .views import add_attachment, delete_attachment
 
 app_name = 'attachments'
 
