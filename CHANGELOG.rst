@@ -1,10 +1,12 @@
 Changelog:
 ==========
 
-(master)
---------
+v1.4 (2019-02-14)
+-----------------
 
 - Dropped Support for Django <=1.10.
+- Fixed 'next' URL argument redirect.
+
 
 v1.3.1 (2019-01-24):
 --------------------
