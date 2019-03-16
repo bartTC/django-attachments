@@ -1,8 +1,7 @@
 import os
 
-from django.urls import reverse
-
 import mock
+from django.urls import reverse
 
 from ..models import Attachment
 from .base import BaseTestCase
