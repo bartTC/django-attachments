@@ -27,7 +27,7 @@ def attachment_form(context, obj, **kwargs):
 
 
 @register.inclusion_tag('attachments/delete_link.html', takes_context=True)
-def attachment_delete_link(context, attachment):
+def attachment_delete_link(context, attachment, **kwargs):
     """
     Renders a html link to the delete view of the given attachment. Returns
     no content if the request-user has no permission to delete attachments.
@@ -42,7 +42,7 @@ def attachment_delete_link(context, attachment):
         and context['user'].has_perm('attachments.delete_attachment')
     ):
         return {
-            'next': context.request.build_absolute_uri(),
+            'next': kwargs.get('next', context.request.build_absolute_uri()),
             'delete_url': reverse(
                 'attachments:delete', kwargs={'attachment_pk': attachment.pk}
             ),
