@@ -9,7 +9,7 @@ register = Library()
 
 
 @register.inclusion_tag('attachments/add_form.html', takes_context=True)
-def attachment_form(context, obj):
+def attachment_form(context, obj, **kwargs):
     """
     Renders a "upload attachment" form.
 
@@ -20,7 +20,7 @@ def attachment_form(context, obj):
         return {
             'form': AttachmentForm(),
             'form_url': add_url_for_obj(obj),
-            'next': context.request.build_absolute_uri(),
+            'next': kwargs.get('next', context.request.build_absolute_uri()),
         }
     else:
         return {'form': None}
