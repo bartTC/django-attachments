@@ -1,6 +1,14 @@
 Changelog:
 ==========
 
+v1.5 (2019-12-08)
+-----------------
+
+- Dropped support for Python 3.4.
+- Added suport for Python 3.8.
+- Django 3.0 compatibility and tests.
+- Django 2.2 compatibility and tests.
+
 v1.4.1 (2019-07-22)
 -------------------
 
