@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 from .forms import AttachmentForm
@@ -58,7 +58,7 @@ def add_attachment(
 
     if form.is_valid():
         form.save(request, obj)
-        messages.success(request, ugettext("Your attachment was uploaded."))
+        messages.success(request, gettext("Your attachment was uploaded."))
         return HttpResponseRedirect(next_)
 
     template_context = {
@@ -80,6 +80,6 @@ def delete_attachment(request, attachment_pk):
     ) or request.user.has_perm("attachments.delete_foreign_attachments"):
         remove_file_from_disk(g.attachment_file)
         g.delete()
-        messages.success(request, ugettext("Your attachment was deleted."))
+        messages.success(request, gettext("Your attachment was deleted."))
     next_ = request.GET.get("next") or "/"
     return HttpResponseRedirect(next_)
