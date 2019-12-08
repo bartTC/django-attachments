@@ -18,18 +18,18 @@ from .models import Attachment
 
 def add_url_for_obj(obj):
     return reverse(
-        'attachments:add',
+        "attachments:add",
         kwargs={
-            'app_label': obj._meta.app_label,
-            'model_name': obj._meta.model_name,
-            'pk': obj.pk,
+            "app_label": obj._meta.app_label,
+            "model_name": obj._meta.model_name,
+            "pk": obj.pk,
         },
     )
 
 
 def remove_file_from_disk(f):
     if getattr(
-        settings, 'DELETE_ATTACHMENTS_FROM_DISK', False
+        settings, "DELETE_ATTACHMENTS_FROM_DISK", False
     ) and os.path.exists(f.path):
         try:
             os.remove(f.path)
@@ -44,12 +44,12 @@ def add_attachment(
     app_label,
     model_name,
     pk,
-    template_name='attachments/add.html',
+    template_name="attachments/add.html",
     extra_context=None,
 ):
-    next_ = request.POST.get('next', '/')
+    next_ = request.POST.get("next", "/")
 
-    if not request.user.has_perm('attachments.add_attachment'):
+    if not request.user.has_perm("attachments.add_attachment"):
         return HttpResponseRedirect(next_)
 
     model = apps.get_model(app_label, model_name)
@@ -58,30 +58,28 @@ def add_attachment(
 
     if form.is_valid():
         form.save(request, obj)
-        messages.success(request, ugettext('Your attachment was uploaded.'))
+        messages.success(request, ugettext("Your attachment was uploaded."))
         return HttpResponseRedirect(next_)
 
     template_context = {
-        'form': form,
-        'form_url': add_url_for_obj(obj),
-        'next': next_,
+        "form": form,
+        "form_url": add_url_for_obj(obj),
+        "next": next_,
     }
     template_context.update(extra_context or {})
 
-    return render(
-        request, template_name, template_context
-    )
+    return render(request, template_name, template_context)
 
 
 @login_required
 def delete_attachment(request, attachment_pk):
     g = get_object_or_404(Attachment, pk=attachment_pk)
     if (
-        request.user.has_perm('attachments.delete_attachment')
+        request.user.has_perm("attachments.delete_attachment")
         and request.user == g.creator
-    ) or request.user.has_perm('attachments.delete_foreign_attachments'):
+    ) or request.user.has_perm("attachments.delete_foreign_attachments"):
         remove_file_from_disk(g.attachment_file)
         g.delete()
-        messages.success(request, ugettext('Your attachment was deleted.'))
-    next_ = request.GET.get('next') or '/'
+        messages.success(request, ugettext("Your attachment was deleted."))
+    next_ = request.GET.get("next") or "/"
     return HttpResponseRedirect(next_)

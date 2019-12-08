@@ -11,11 +11,11 @@ from .models import Attachment
 
 def validate_max_size(data):
     if (
-        hasattr(settings, 'FILE_UPLOAD_MAX_SIZE')
+        hasattr(settings, "FILE_UPLOAD_MAX_SIZE")
         and data.size > settings.FILE_UPLOAD_MAX_SIZE
     ):
         raise forms.ValidationError(
-            _('File exceeds maximum size of {size}').format(
+            _("File exceeds maximum size of {size}").format(
                 size=filesizeformat(settings.FILE_UPLOAD_MAX_SIZE)
             )
         )
@@ -23,12 +23,12 @@ def validate_max_size(data):
 
 class AttachmentForm(forms.ModelForm):
     attachment_file = forms.FileField(
-        label=_('Upload attachment'), validators=[validate_max_size]
+        label=_("Upload attachment"), validators=[validate_max_size]
     )
 
     class Meta:
         model = Attachment
-        fields = ('attachment_file',)
+        fields = ("attachment_file",)
 
     def save(self, request, obj, *args, **kwargs):
         self.instance.creator = request.user

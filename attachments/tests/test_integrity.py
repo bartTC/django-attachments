@@ -14,6 +14,6 @@ class IntegrityTestCase(TestCase):
         """
         output = StringIO()
         call_command(
-            'makemigrations', '--dry-run', interactive=False, stdout=output
+            "makemigrations", "--dry-run", interactive=False, stdout=output
         )
-        self.assertTrue('No changes detected' in output.getvalue())
+        self.assertTrue("No changes detected" in output.getvalue())

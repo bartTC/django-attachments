@@ -19,18 +19,18 @@ class BaseTestCase(TestCase):
         """
         content_type = ContentType.objects.get_for_model(Attachment)
         self.add_permission = Permission.objects.get(
-            content_type=content_type, codename='add_attachment'
+            content_type=content_type, codename="add_attachment"
         )
         self.del_permission = Permission.objects.get(
-            content_type=content_type, codename='delete_attachment'
+            content_type=content_type, codename="delete_attachment"
         )
 
         self.del_foreign_permission = Permission.objects.get(
-            content_type=content_type, codename='delete_foreign_attachments'
+            content_type=content_type, codename="delete_foreign_attachments"
         )
 
-        self.cred_jon = {'username': 'jon', 'password': 'foobar'}
-        self.cred_jane = {'username': 'jane', 'password': 'foobar'}
+        self.cred_jon = {"username": "jon", "password": "foobar"}
+        self.cred_jane = {"username": "jane", "password": "foobar"}
         self.jon = User.objects.create_user(**self.cred_jon)
         self.jon.user_permissions.add(self.add_permission)
         self.jon.user_permissions.add(self.del_permission)
@@ -39,18 +39,18 @@ class BaseTestCase(TestCase):
         self.jane.user_permissions.add(self.add_permission)
         self.jane.user_permissions.add(self.del_permission)
 
-        self.obj = TestModel.objects.create(title='My first test item')
+        self.obj = TestModel.objects.create(title="My first test item")
 
     def _upload_testfile(self, file_obj=None):
         """
         Uploads a sample file for the given user.
         """
         add_url = reverse(
-            'attachments:add',
+            "attachments:add",
             kwargs={
-                'app_label': 'testapp',
-                'model_name': 'testmodel',
-                'pk': self.obj.pk,
+                "app_label": "testapp",
+                "model_name": "testmodel",
+                "pk": self.obj.pk,
             },
         )
 
@@ -61,5 +61,5 @@ class BaseTestCase(TestCase):
                 content_type="image/jpeg",
             )
         return self.client.post(
-            add_url, {'attachment_file': file_obj}, follow=True
+            add_url, {"attachment_file": file_obj}, follow=True
         )
