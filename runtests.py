@@ -11,7 +11,14 @@ def runtests(*test_args):
     # Setup settings
     if not settings.configured:
         from attachments.tests.testapp import settings as TEST_SETTINGS
-        settings.configure(**TEST_SETTINGS.__dict__)
+
+        # workaround Django 3 check if settings are upper case only!
+        app_settings = {}
+        for name, value in TEST_SETTINGS.__dict__.items():
+            if name.isupper():
+                app_settings[name] = value
+
+        settings.configure(**app_settings)
 
     setup()
 
