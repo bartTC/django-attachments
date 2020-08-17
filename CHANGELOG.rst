@@ -1,6 +1,11 @@
 Changelog:
 ==========
 
+(master)
+--------
+
+- Django 3.1 compatibility and tests.
+
 v1.6 (2020-08-17)
 -----------------
 
