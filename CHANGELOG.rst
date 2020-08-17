@@ -1,6 +1,12 @@
 Changelog:
 ==========
 
+v1.6 (2020-08-17)
+-----------------
+
+- Primary keys of related objects other than Integers (such as UUIDs)
+  are now supported.
+
 v1.5 (2019-12-08)
 -----------------
 
