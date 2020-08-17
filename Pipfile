@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django-attachments = {editable = true,path = "."}
+django-attachments = {editable = true,extras = ["test"],path = "."}
 
 [dev-packages]
 isort = "*"
@@ -12,7 +12,8 @@ black = "*"
 coverage = "*"
 
 [scripts]
-cleanup = "sh -c \"black --skip-string-normalization --line-length=80 --exclude='/(migrations)/' attachments && isort -rc attachments\""
+test = "pytest attachments/"
+cleanup = "sh -c \"black --line-length=80 --exclude='/(migrations)/' attachments && isort -rc attachments\""
 
 [pipenv]
 allow_prereleases = true

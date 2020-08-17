@@ -1,1 +1,1 @@
-default_app_config = 'attachments.apps.AttachmentsConfig'
+default_app_config = "attachments.apps.AttachmentsConfig"

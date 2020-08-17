@@ -10,11 +10,11 @@ from .base import BaseTestCase
 class ViewTestCase(BaseTestCase):
     def test_empty_post_to_form_wont_create_attachment(self):
         add_url = reverse(
-            'attachments:add',
+            "attachments:add",
             kwargs={
-                'app_label': 'testapp',
-                'model_name': 'testmodel',
-                'pk': self.obj.pk,
+                "app_label": "testapp",
+                "model_name": "testmodel",
+                "pk": self.obj.pk,
             },
         )
         response = self.client.post(add_url)
@@ -26,11 +26,11 @@ class ViewTestCase(BaseTestCase):
 
     def test_invalid_model_wont_fail(self):
         add_url = reverse(
-            'attachments:add',
+            "attachments:add",
             kwargs={
-                'app_label': 'thisdoes',
-                'model_name': 'notexist',
-                'pk': self.obj.pk,
+                "app_label": "thisdoes",
+                "model_name": "notexist",
+                "pk": self.obj.pk,
             },
         )
         response = self.client.post(add_url)
@@ -42,7 +42,7 @@ class ViewTestCase(BaseTestCase):
 
     def test_invalid_attachment_wont_fail(self):
         self.client.login(**self.cred_jon)
-        self._upload_testfile(file_obj='Not a UploadedFile object')
+        self._upload_testfile(file_obj="Not a UploadedFile object")
         self.assertEqual(Attachment.objects.count(), 0)
         self.assertEqual(
             Attachment.objects.attachments_for_object(self.obj).count(), 0
@@ -96,7 +96,7 @@ class ViewTestCase(BaseTestCase):
         self._upload_testfile()
         att = Attachment.objects.first()
         del_url = reverse(
-            'attachments:delete', kwargs={'attachment_pk': att.pk}
+            "attachments:delete", kwargs={"attachment_pk": att.pk}
         )
         self.client.logout()
         self.client.get(del_url, follow=True)
@@ -111,7 +111,7 @@ class ViewTestCase(BaseTestCase):
         att = Attachment.objects.first()
         file_path = att.attachment_file.path
         del_url = reverse(
-            'attachments:delete', kwargs={'attachment_pk': att.pk}
+            "attachments:delete", kwargs={"attachment_pk": att.pk}
         )
         self.client.get(del_url, follow=True)
         self.assertEqual(Attachment.objects.count(), 0)
@@ -125,7 +125,7 @@ class ViewTestCase(BaseTestCase):
         self._upload_testfile()
         att = Attachment.objects.first()
         del_url = reverse(
-            'attachments:delete', kwargs={'attachment_pk': att.pk}
+            "attachments:delete", kwargs={"attachment_pk": att.pk}
         )
         self.client.get(del_url, follow=True)
         self.assertEqual(Attachment.objects.count(), 1)
@@ -133,18 +133,18 @@ class ViewTestCase(BaseTestCase):
     def test_author_cant_delete_others_attachment(self):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
-        obj1 = Attachment.objects.order_by('-created')[0]
+        obj1 = Attachment.objects.order_by("-created")[0]
 
         self.client.login(**self.cred_jane)
         self._upload_testfile()
-        obj2 = Attachment.objects.order_by('-created')[0]
+        obj2 = Attachment.objects.order_by("-created")[0]
 
         self.assertNotEqual(obj1, obj2)
 
         # Jon can't delete Janes attachment
         self.client.login(**self.cred_jon)
         del_url = reverse(
-            'attachments:delete', kwargs={'attachment_pk': obj2.pk}
+            "attachments:delete", kwargs={"attachment_pk": obj2.pk}
         )
         self.client.get(del_url, follow=True)
 
@@ -153,12 +153,12 @@ class ViewTestCase(BaseTestCase):
     def test_author_can_delete_others_attachment_with_permission(self):
         self.client.login(**self.cred_jon)
         self._upload_testfile()
-        obj1 = Attachment.objects.order_by('-created')[0]
+        obj1 = Attachment.objects.order_by("-created")[0]
         path1 = obj1.attachment_file.path
 
         self.client.login(**self.cred_jane)
         self._upload_testfile()
-        obj2 = Attachment.objects.order_by('-created')[0]
+        obj2 = Attachment.objects.order_by("-created")[0]
         path2 = obj2.attachment_file.path
 
         self.assertNotEqual(obj1, obj2)
@@ -172,7 +172,7 @@ class ViewTestCase(BaseTestCase):
         # cover that branch as well
         with self.settings(DELETE_ATTACHMENT_FILE=False):
             del_url = reverse(
-                'attachments:delete', kwargs={'attachment_pk': obj2.pk}
+                "attachments:delete", kwargs={"attachment_pk": obj2.pk}
             )
             self.client.get(del_url, follow=True)
 
@@ -187,7 +187,7 @@ class ViewTestCase(BaseTestCase):
         file_path = att.attachment_file.path
         with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
             del_url = reverse(
-                'attachments:delete', kwargs={'attachment_pk': att.pk}
+                "attachments:delete", kwargs={"attachment_pk": att.pk}
             )
             self.client.get(del_url, follow=True)
             self.assertEqual(Attachment.objects.count(), 0)
@@ -202,7 +202,7 @@ class ViewTestCase(BaseTestCase):
         os.remove(file_path)
         with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
             del_url = reverse(
-                'attachments:delete', kwargs={'attachment_pk': att.pk}
+                "attachments:delete", kwargs={"attachment_pk": att.pk}
             )
             self.client.get(del_url, follow=True)
             self.assertEqual(Attachment.objects.count(), 0)
@@ -213,11 +213,11 @@ class ViewTestCase(BaseTestCase):
         self._upload_testfile()
         att = Attachment.objects.first()
 
-        with mock.patch('attachments.views.os.remove') as _mock:
-            _mock.side_effect = OSError('Test file does not exist')
+        with mock.patch("attachments.views.os.remove") as _mock:
+            _mock.side_effect = OSError("Test file does not exist")
             with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
                 del_url = reverse(
-                    'attachments:delete', kwargs={'attachment_pk': att.pk}
+                    "attachments:delete", kwargs={"attachment_pk": att.pk}
                 )
                 self.client.get(del_url, follow=True)
                 self.assertEqual(Attachment.objects.count(), 0)

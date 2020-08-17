@@ -76,7 +76,7 @@ Run the testsuite in your local environment using ``pipenv``::
 
     $ cd django-attachments/
     $ pipenv install --dev
-    $ pipenv run ./runtests.py
+    $ pipenv run pytest attachments/
 
 Or use tox to test against various Django and Python versions::
 
@@ -87,7 +87,7 @@ the ``django-admin`` tool with the test app settings::
 
     $ cd django-attachments/
     $ pipenv install --dev
-    $ pipenv run django-admin.py migrate
+    $ pipenv run test
     $ pipenv run django-admin.py runserver
 
 Usage:
