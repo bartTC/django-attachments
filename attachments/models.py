@@ -31,7 +31,7 @@ class Attachment(models.Model):
     objects = AttachmentManager()
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.TextField()
+    object_id = models.TextField(db_index=True)
     content_object = GenericForeignKey("content_type", "object_id")
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
