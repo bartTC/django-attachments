@@ -69,6 +69,18 @@ configuration this would look like::
     </Location>
 
 
+House-keeping
+=============
+
+django-attachments provides the ``delete_stale_sttachments`` management command.
+It will remove all attachments for which the related objects don't exist anymore!
+Sys-admins could then::
+
+    ./manage.py delete_stale_attachments
+
+You may also want to execute this via cron.
+
+
 Tests
 =====
 
