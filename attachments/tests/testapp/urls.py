@@ -1,4 +1,9 @@
-from django.conf.urls import include, url
+try:
+    from django.urls import re_path as url
+except ImportError:
+    from django.conf.urls import url
+
+from django.conf.urls import include
 from django.contrib import admin
 from django.views.generic import DetailView
 

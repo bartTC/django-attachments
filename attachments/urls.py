@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import url
+try:
+    from django.urls import re_path as url
+except ImportError:
+    from django.conf.urls import url
 
 from .views import add_attachment, delete_attachment
 
