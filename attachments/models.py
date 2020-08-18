@@ -62,3 +62,25 @@ class Attachment(models.Model):
     @property
     def filename(self):
         return os.path.split(self.attachment_file.name)[1]
+
+    def attach_to(self, new_object, update_path=False):
+        """
+            Attach to a new object and possibly move the actual file on disk!
+
+            .. important::
+
+                As long as path names are valid you can continue serving
+                the files from their original path and not change it!
+        """
+        self.object_id = new_object.pk
+        self.content_type = ContentType.objects.get_for_model(new_object)
+        self.save()
+
+        if update_path:
+            old_path = self.attachment_file.path
+            self.attachment_file.name = attachment_upload(self, self.filename)
+            self.attachment_file.save()
+
+            os.makedirs(
+                os.path.dirname(self.attachment_file.path), exist_ok=True)
+            os.rename(old_path, self.attachment_file.path)
