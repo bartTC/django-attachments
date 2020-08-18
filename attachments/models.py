@@ -42,8 +42,8 @@ class Attachment(models.Model):
     attachment_file = models.FileField(
         _("attachment"), upload_to=attachment_upload
     )
-    created = models.DateTimeField(_("created"), auto_now_add=True)
-    modified = models.DateTimeField(_("modified"), auto_now=True)
+    created = models.DateTimeField(_("created"), auto_now_add=True, db_index=True)
+    modified = models.DateTimeField(_("modified"), auto_now=True, db_index=True)
 
     class Meta:
         verbose_name = _("attachment")
