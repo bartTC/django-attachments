@@ -1,10 +1,17 @@
 Changelog:
 ==========
 
-(master)
---------
 
+v1.7 (2020-08-31)
+-----------------
+
+- Add DB index to ``object_id``, ``created`` and ``modified`` fields.
+- Add ``delete_stale_attachments`` command to remove attachments for which
+  the corresponding object has been deleted.
+- Add ``Attachment.attach_to()`` method for moving attachments between
+  different objects.
 - Django 3.1 compatibility and tests.
+
 
 v1.6 (2020-08-17)
 -----------------
