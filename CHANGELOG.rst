@@ -1,9 +1,15 @@
 Changelog:
 ==========
 
-
-v1.7 (2020-08-31)
+v1.8 (2020-09-03)
 -----------------
+
+- Alter ``object_id`` from ``TextField()`` to ``CharField(max_length=64)``,
+  and keep the db_index argument. This resolves the issues on MariaDB/MySQL.
+
+
+v1.7 (2020-08-31) - **broken on MariaDB/MySQL**
+-----------------------------------------------
 
 - Add DB index to ``object_id``, ``created`` and ``modified`` fields.
 - Add ``delete_stale_attachments`` command to remove attachments for which
