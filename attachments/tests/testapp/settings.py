@@ -6,9 +6,17 @@ TESTAPP_DIR = os.path.abspath(os.path.dirname(__file__))
 
 SECRET_KEY = "testsecretkey"
 
-DATABASES = {
-    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "tests.db"}
-}
+if os.environ.get("DJANGO_DATABASE_ENGINE") == "postgresql":
+    DATABASES = {
+        "default": {"ENGINE": "django.db.backends.postgresql", "NAME": "attachments"}
+    }
+elif os.environ.get("DJANGO_DATABASE_ENGINE") == "mysql":
+    DATABASES = {
+        "default": {"ENGINE": "django.db.backends.mysql", "NAME": "attachments"}
+    }
+else:
+    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "tests.db"}}
+
 
 MEDIA_ROOT = os.path.join(TESTAPP_DIR, "uploads")
 ROOT_URLCONF = "attachments.tests.testapp.urls"
