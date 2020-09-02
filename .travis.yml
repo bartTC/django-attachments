@@ -10,6 +10,23 @@ matrix:
     - python: 3.7
     - python: 3.8
 
+    - python: 3.8
+      env: TOXENV=mariadb-django-31
+      addons:
+        mariadb: "10.3"
+      script:
+        # working around https://travis-ci.community/t/mariadb-build-error-with-xenial/3160
+        - mysql -u root -e "DROP USER IF EXISTS 'travis'@'%';"
+        - mysql -u root -e "CREATE USER 'travis'@'%';"
+        - mysql -u root -e "CREATE DATABASE attachments;"
+        - mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'travis'@'%';";
+        - tox -v
+
+    - python: 3.8
+      env: TOXENV=postgresql-django-31
+      addons:
+        postgresql: "9.5"
+
 install: pip install tox-travis coverage codacy-coverage
 
 script: tox
