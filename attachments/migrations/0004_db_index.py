@@ -12,11 +12,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='attachment',
-            name='object_id',
-            field=models.TextField(db_index=True),
-        ),
-        migrations.AlterField(
-            model_name='attachment',
             name='created',
             field=models.DateTimeField(auto_now_add=True, db_index=True,
                                        verbose_name='created'),
