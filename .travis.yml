@@ -17,3 +17,8 @@ script: tox
 after_success:
   - coverage xml
   - python-codacy-coverage -r coverage.xml
+
+notifications:
+  email:
+    on_failure: change
+    on_success: never
