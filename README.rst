@@ -22,20 +22,26 @@ Installation:
 =============
 
 1. Put ``attachments`` to your ``INSTALLED_APPS`` in your ``settings.py``
-   within your django project::
+   within your django project:
+   
+   .. code-block:: python
 
-    INSTALLED_APPS = (
-        ...
-        'attachments',
-    )
+        INSTALLED_APPS = (
+            ...
+            'attachments',
+        )
 
-2. Add the attachments urlpattern to your ``urls.py``::
+2. Add the attachments urlpattern to your ``urls.py``:
 
-    url(r'^attachments/', include('attachments.urls', namespace='attachments')),
+   .. code-block:: python
 
-3. Migrate your database::
+        url(r'^attachments/', include('attachments.urls', namespace='attachments')),
 
-    ./manage.py migrate
+3. Migrate your database:
+
+   .. code-block:: shell
+
+        ./manage.py migrate
 
 4. Grant the user some permissions:
 
@@ -62,7 +68,9 @@ Mind that you serve files!
 django-attachments stores the files in your site_media directory and does not modify
 them. For example, if an user uploads a .html file your webserver will probably display
 it in HTML. It's a good idea to serve such files as plain text. In a Apache2
-configuration this would look like::
+configuration this would look like:
+
+.. code-block:: apache
 
     <Location /site_media/attachments>
         AddType text/plain .html .htm .shtml .php .php5 .php4 .pl .cgi
@@ -74,7 +82,9 @@ House-keeping
 
 django-attachments provides the ``delete_stale_sttachments`` management command.
 It will remove all attachments for which the related objects don't exist anymore!
-Sys-admins could then::
+Sys-admins could then:
+
+.. code-block:: shell
 
     ./manage.py delete_stale_attachments
 
@@ -84,18 +94,24 @@ You may also want to execute this via cron.
 Tests
 =====
 
-Run the testsuite in your local environment using ``pipenv``::
+Run the testsuite in your local environment using ``pipenv``:
+
+.. code-block:: shell
 
     $ cd django-attachments/
     $ pipenv install --dev
     $ pipenv run pytest attachments/
 
-Or use tox to test against various Django and Python versions::
+Or use tox to test against various Django and Python versions:
+
+.. code-block:: shell
 
     $ tox -r
 
 You can also invoke the test suite or other 'manage.py' commands by calling
-the ``django-admin`` tool with the test app settings::
+the ``django-admin`` tool with the test app settings:
+
+.. code-block:: shell
 
     $ cd django-attachments/
     $ pipenv install --dev
@@ -111,7 +127,9 @@ In contrib.admin:
 django-attachments provides a inline object to add a list of attachments to
 any kind of model in your admin app.
 
-Simply add ``AttachmentInlines`` to the admin options of your model. Example::
+Simply add ``AttachmentInlines`` to the admin options of your model. Example:
+
+.. code-block:: python
 
     from django.contrib import admin
     from attachments.admin import AttachmentInlines
@@ -124,7 +142,9 @@ Simply add ``AttachmentInlines`` to the admin options of your model. Example::
 In your frontend templates:
 ---------------------------
 
-First of all, load the attachments_tags in every template you want to use it::
+First of all, load the attachments_tags in every template you want to use it:
+
+.. code-block:: html+django
 
     {% load attachments_tags %}
 
@@ -136,26 +156,34 @@ for your model objects in your frontend.
    list is stored in the template context (this is required in Django 1.8). If
    you do not define a variable name, the result is printed instead.
 
-   {% get_attachments_for entry as "attachments_list" %}
+   .. code-block:: html+django
+
+        {% get_attachments_for entry as "attachments_list" %}
 
 2. ``attachments_count [object]``: Counts the attachments for the given
-   model instance and returns an int::
+   model instance and returns an int:
 
-   {% attachments_count entry %}
+   .. code-block:: html+django
+
+        {% attachments_count entry %}
 
 3. ``attachment_form``: Renders a upload form to add attachments for the given
-   model instance. Example::
+   model instance. Example:
 
-    {% attachment_form [object] %}
+   .. code-block:: html+django
+
+        {% attachment_form [object] %}
 
    It returns an empty string if the current user is not logged in.
 
 4. ``attachment_delete_link``: Renders a link to the delete view for the given
-   *attachment*. Example::
+   *attachment*. Example:
 
-    {% for att in attachments_list %}
-        {{ att }} {% attachment_delete_link att %}
-    {% endfor %}
+   .. code-block:: html+django
+
+        {% for att in attachments_list %}
+            {{ att }} {% attachment_delete_link att %}
+        {% endfor %}
 
    This tag automatically checks for permission. It returns only a html link if the
    give n attachment's creator is the current logged in user or the user has the
@@ -164,7 +192,7 @@ for your model objects in your frontend.
 Quick Example:
 ==============
 
-::
+.. code-block:: html+django
 
     {% load attachments_tags %}
     {% get_attachments_for entry as my_entry_attachments %}
