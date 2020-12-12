@@ -80,7 +80,7 @@ configuration this would look like:
 House-keeping
 =============
 
-django-attachments provides the ``delete_stale_sttachments`` management command.
+django-attachments provides the ``delete_stale_attachments`` management command.
 It will remove all attachments for which the related objects don't exist anymore!
 Sys-admins could then:
 
