@@ -1,6 +1,16 @@
 Changelog:
 ==========
 
+v1.9 (2021-04-29)
+-----------------
+
+- Configure PK explicitly to AutoField for Django 3.2+, see
+  https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+- Start testing with Django 3.2
+- Fix typo in README (Jesaja Everling)
+- Enable syntax highlighting in README (Basil S)
+
+
 v1.8 (2020-09-03)
 -----------------
 
