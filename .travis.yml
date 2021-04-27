@@ -11,7 +11,7 @@ matrix:
     - python: 3.8
 
     - python: 3.8
-      env: TOXENV=mariadb-django-31
+      env: TOXENV=mariadb-django-32
       addons:
         mariadb: "10.3"
       script:
@@ -23,7 +23,7 @@ matrix:
         - tox -v
 
     - python: 3.8
-      env: TOXENV=postgresql-django-31
+      env: TOXENV=postgresql-django-32
       addons:
         postgresql: "9.5"
 
