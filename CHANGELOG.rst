@@ -1,8 +1,14 @@
 Changelog:
 ==========
 
-v1.9 (2021-04-29)
------------------
+v1.9.1 (2021-04-30)
+-------------------
+
+- Rebuild the previous version but don't ship a left-over migration file
+
+
+v1.9 (2021-04-29) -- removed from PyPI
+--------------------------------------
 
 - Configure PK explicitly to AutoField for Django 3.2+, see
   https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
