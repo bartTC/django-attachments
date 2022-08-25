@@ -158,7 +158,7 @@ for your model objects in your frontend.
 
    .. code-block:: html+django
 
-        {% get_attachments_for entry as "attachments_list" %}
+        {% get_attachments_for entry as attachments_list %}
 
 2. ``attachments_count [object]``: Counts the attachments for the given
    model instance and returns an int:
