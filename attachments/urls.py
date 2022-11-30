@@ -15,5 +15,10 @@ urlpatterns = [
         add_attachment,
         name="add",
     ),
+    url(
+        r"^add-for/(?P<app_label>[\w\-]+)/(?P<model_name>[\w\-]+)/(?P<pk>[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12})/$",
+        add_attachment,
+        name="add",
+    ),
     url(r"^delete/(?P<attachment_pk>\d+)/$", delete_attachment, name="delete"),
 ]
