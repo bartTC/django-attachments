@@ -8,15 +8,34 @@ SECRET_KEY = "testsecretkey"
 
 if os.environ.get("DJANGO_DATABASE_ENGINE") == "postgresql":
     DATABASES = {
-        "default": {"ENGINE": "django.db.backends.postgresql", "NAME": "attachments"}
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "USER": "postgres",
+            "NAME": "attachments",
+            "HOST": "localhost",
+            "PORT": 5432,
+        }
     }
 elif os.environ.get("DJANGO_DATABASE_ENGINE") == "mysql":
     DATABASES = {
-        "default": {"ENGINE": "django.db.backends.mysql", "NAME": "attachments"}
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "USER": "root",
+            "NAME": "attachments",
+            "HOST": "127.0.0.1",
+            "PORT": 3306,
+        }
     }
 else:
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "tests.db"}}
+    DATABASES = {
+        "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "tests.db"}
+    }
 
+DATABASES["default"].update(
+    {
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD", "testing"),
+    }
+)
 
 MEDIA_ROOT = os.path.join(TESTAPP_DIR, "uploads")
 ROOT_URLCONF = "attachments.tests.testapp.urls"

@@ -1,0 +1,36 @@
+name: testing
+
+on:
+  push:
+    branches: master
+  pull_request:
+
+jobs:
+  tox:
+    name: tox
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Setup
+        run: |
+          docker run --name db_postgres -p 5432:5432 -e POSTGRES_PASSWORD=testing -d postgres:latest
+          sleep 10 # wait for server to initialize
+          PGPASSWORD="testing" psql -c 'create database attachments;' -U postgres -h localhost
+
+          docker run --name db_mariadb -e MARIADB_ROOT_PASSWORD=testing -e MARIADB_DATABASE=attachements -p 3306:3306 -d mariadb:latest
+          sleep 10 # wait for server to initialize
+
+          pip install tox-travis coverage
+
+      - name: Execute tests
+        run: |
+          tox
