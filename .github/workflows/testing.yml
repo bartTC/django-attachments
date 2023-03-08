@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: [3.8, 3.9, '3.10']
 
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
           docker run --name db_mariadb -e MARIADB_ROOT_PASSWORD=testing -e MARIADB_DATABASE=attachements -p 3306:3306 -d mariadb:latest
           sleep 10 # wait for server to initialize
 
-          pip install tox-travis coverage
+          pip install tox coverage
 
       - name: Execute tests
         run: |
