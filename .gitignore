@@ -3,3 +3,4 @@ attachments/tests/testapp/uploads/
 __pycache__
 *.pyc
 tests.db
+.coverage
