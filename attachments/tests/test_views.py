@@ -65,7 +65,8 @@ class ViewTestCase(BaseTestCase):
         # is very small
         with self.settings(FILE_UPLOAD_MAX_SIZE=1):
             self.client.login(**self.cred_jon)
-            self._upload_testfile()
+            response = self._upload_testfile()
+            self.assertContains(response, "File exceeds maximum size of 1")
             self.assertEqual(Attachment.objects.count(), 0)
             self.assertEqual(
                 Attachment.objects.attachments_for_object(self.obj).count(), 0
