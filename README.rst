@@ -136,6 +136,18 @@ the ``django-admin`` tool with the test app settings:
     $ pipenv run django-admin.py runserver
     $ pipenv run django-admin makemigrations --dry-run
 
+
+Building a new release
+======================
+
+   .. code-block:: shell
+
+        $ git tag
+        $ change version in setup.cfg
+        $ pip install -U setuptools
+        $ python setup.py sdist && python setup.py bdist_wheel --universal
+        $ twine upload --sign dist/*
+
 Usage:
 ======
 
