@@ -91,6 +91,23 @@ Sys-admins could then:
 You may also want to execute this via cron.
 
 
+Local development
+=================
+
+Installing a local devel environment with ``pipenv``.
+It creates a virtualenv for you with the right ENV variables loaded from ``.env``.
+
+   .. code-block:: shell
+
+        # pip install pipenv
+
+        $ pipenv install
+        Loading .env environment variables...
+        Installing dependencies from Pipfile.lock (a053bc)...
+        To activate this project's virtualenv, run pipenv shell.
+        Alternatively, run a command inside the virtualenv with pipenv run.
+
+
 Tests
 =====
 
@@ -117,6 +134,7 @@ the ``django-admin`` tool with the test app settings:
     $ pipenv install --dev
     $ pipenv run test
     $ pipenv run django-admin.py runserver
+    $ pipenv run django-admin makemigrations --dry-run
 
 Usage:
 ======
