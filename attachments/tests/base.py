@@ -12,6 +12,8 @@ from .testapp.models import TestModel
 
 
 class BaseTestCase(TestCase):
+    target_model_class = TestModel
+
     def setUp(self):
         """
         Create two users with `attachments.add_attachment` permission
@@ -39,7 +41,7 @@ class BaseTestCase(TestCase):
         self.jane.user_permissions.add(self.add_permission)
         self.jane.user_permissions.add(self.del_permission)
 
-        self.obj = TestModel.objects.create(title="My first test item")
+        self.obj = self.target_model_class.objects.create(title="My first test item")
 
     def _upload_testfile(self, file_obj=None):
         """
@@ -49,7 +51,7 @@ class BaseTestCase(TestCase):
             "attachments:add",
             kwargs={
                 "app_label": "testapp",
-                "model_name": "testmodel",
+                "model_name": self.target_model_class.__name__.lower(),
                 "pk": self.obj.pk,
             },
         )
