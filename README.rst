@@ -250,3 +250,11 @@ Quick Example:
     {% endfor %}
     </ul>
     {% endif %}
+
+Settings
+========
+
+- ``DELETE_ATTACHMENTS_FROM_DISK`` will delete attachment files when the
+  attachment model is deleted. Default False!
+- ``FILE_UPLOAD_MAX_SIZE`` in bytes. Deny file uploads exceeding this value.
+  Undefined by default.
