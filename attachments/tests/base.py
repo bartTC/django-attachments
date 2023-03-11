@@ -43,7 +43,7 @@ class BaseTestCase(TestCase):
 
         self.obj = self.target_model_class.objects.create(title="My first test item")
 
-    def _upload_testfile(self, file_obj=None):
+    def _upload_testfile(self, file_obj=None, file_content=b"file content"):
         """
         Uploads a sample file for the given user.
         """
@@ -59,7 +59,7 @@ class BaseTestCase(TestCase):
         if not file_obj:
             file_obj = SimpleUploadedFile(
                 "Ünicode Filename 🙂.jpg",
-                b"file content",
+                file_content,
                 content_type="image/jpeg",
             )
         return self.client.post(

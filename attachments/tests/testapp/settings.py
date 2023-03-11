@@ -41,8 +41,8 @@ MEDIA_ROOT = os.path.join(TESTAPP_DIR, "uploads")
 ROOT_URLCONF = "attachments.tests.testapp.urls"
 
 INSTALLED_APPS = [
-    "attachments",
     "attachments.tests.testapp",
+    "attachments.tests.testapp.apps.CustomizedAttachmentsApp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

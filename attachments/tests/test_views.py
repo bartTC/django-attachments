@@ -237,3 +237,15 @@ class UUIDTestCase(BaseTestCase):
         self.assertEqual(
             Attachment.objects.attachments_for_object(self.obj).count(), 1
         )
+
+
+class CustomValidatorsTestCase(BaseTestCase):
+    def test_deny_specific_content(self):
+        self.client.login(**self.cred_jon)
+        response = self._upload_testfile(file_content=b"<xml>this is not allowed</xml>")
+
+        self.assertContains(response, "XML is forbidden")
+        self.assertEqual(Attachment.objects.count(), 0)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 0
+        )

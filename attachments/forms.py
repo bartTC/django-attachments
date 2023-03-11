@@ -1,12 +1,15 @@
 from __future__ import unicode_literals
 
 from django import forms
+from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
 from .models import Attachment
+
+config = apps.get_app_config("attachments")
 
 
 def validate_max_size(data):
@@ -21,9 +24,15 @@ def validate_max_size(data):
         )
 
 
+def custom_attachment_validators(uploaded_file):
+    for validator in getattr(config, "attachment_validators", ()):
+        validator(uploaded_file)
+
+
 class AttachmentForm(forms.ModelForm):
     attachment_file = forms.FileField(
-        label=_("Upload attachment"), validators=[validate_max_size]
+        label=_("Upload attachment"),
+        validators=[validate_max_size, custom_attachment_validators]
     )
 
     class Meta:

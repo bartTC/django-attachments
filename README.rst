@@ -255,6 +255,10 @@ Settings
 ========
 
 - ``DELETE_ATTACHMENTS_FROM_DISK`` will delete attachment files when the
-  attachment model is deleted. Default False!
+  attachment model is deleted. **Default False**!
 - ``FILE_UPLOAD_MAX_SIZE`` in bytes. Deny file uploads exceeding this value.
-  Undefined by default.
+  **Undefined by default**.
+- ``AppConfig.attachment_validators`` - a list of custom form validator functions
+  which will be executed against uploaded files. If any of them raises
+  ``ValidationError`` the upload will be denied. **Empty by default**. See
+  ``attachments/tests/testapp/apps.py`` for an example.
