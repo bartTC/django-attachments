@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from ..models import Attachment
 from .base import BaseTestCase
+from .testapp.models import ModelWithUuidPk
 
 
 class ViewTestCase(BaseTestCase):
@@ -223,3 +224,15 @@ class ViewTestCase(BaseTestCase):
                 self.assertEqual(Attachment.objects.count(), 0)
                 # NOTE: we don't assert the file path here because
                 # the mock which raises will not actually delete it
+
+
+class UUIDTestCase(BaseTestCase):
+    target_model_class = ModelWithUuidPk
+
+    def test_upload_with_permission(self):
+        self.client.login(**self.cred_jon)
+        self._upload_testfile()
+        self.assertEqual(Attachment.objects.count(), 1)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 1
+        )
