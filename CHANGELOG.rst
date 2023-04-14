@@ -1,6 +1,24 @@
 Changelog:
 ==========
 
+v1.10 (2023-04-14)
+-------------------
+
+- Support custom form validators via ``AppConfig.attachment_validators``
+- Remove quotes from "attachment_list" (Aaron C. de Bruyn)
+- Add a URL for matching objects with a UUID4 primary key. Fix
+  `Issue #94 <https://github.com/bartTC/django-attachments/issues/94>`_
+  (Aaron C. de Bruyn)
+- Document settings supported by django-attachments
+- Document how to make a new release. Closes
+  `Issue #78 <https://github.com/bartTC/django-attachments/issues/78>`_
+- Start testing with GitHub Actions
+- Drop testing with end-of-life versions of Django
+- Add testing with Django 4.0 and 4.1, Python 3.9 and 3.10
+  and switch the default Python version used to 3.10
+- Add testing w/ Python 3.11 - supported only on Django 4.1 for now
+
+
 v1.9.1 (2021-04-30)
 -------------------
 
