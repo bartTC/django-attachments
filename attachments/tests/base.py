@@ -43,7 +43,7 @@ class BaseTestCase(TestCase):
 
         self.obj = self.target_model_class.objects.create(title="My first test item")
 
-    def _upload_testfile(self, file_obj=None, file_content=b"file content"):
+    def _upload_testfile(self, file_obj=None, file_content=b"file content", **extra):
         """
         Uploads a sample file for the given user.
         """
@@ -63,5 +63,6 @@ class BaseTestCase(TestCase):
                 content_type="image/jpeg",
             )
         return self.client.post(
-            add_url, {"attachment_file": file_obj}, follow=True
+            add_url, {"attachment_file": file_obj}, follow=True,
+            **extra
         )
