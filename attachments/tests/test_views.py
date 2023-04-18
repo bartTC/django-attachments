@@ -1,6 +1,8 @@
 import os
-
+import json
 import mock
+
+from http import HTTPStatus
 from django.urls import reverse
 
 from ..models import Attachment
@@ -245,6 +247,26 @@ class CustomValidatorsTestCase(BaseTestCase):
         response = self._upload_testfile(file_content=b"<xml>this is not allowed</xml>")
 
         self.assertContains(response, "XML is forbidden")
+        self.assertEqual(Attachment.objects.count(), 0)
+        self.assertEqual(
+            Attachment.objects.attachments_for_object(self.obj).count(), 0
+        )
+
+    def test_form_errors_are_returned_as_json(self):
+        self.client.login(**self.cred_jon)
+        response = self._upload_testfile(
+            file_content=b"<xml>this is not allowed</xml>",
+            HTTP_X_RETURN_FORM_ERRORS=True,
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
+        self.assertEqual(response.headers.get("Content-Type"), "application/json")
+
+        # this should be a dict
+        errors = json.loads(response.content)
+        # note: field errors are a list of string messages
+        self.assertEqual(errors["attachment_file"], ["XML is forbidden"])
+
         self.assertEqual(Attachment.objects.count(), 0)
         self.assertEqual(
             Attachment.objects.attachments_for_object(self.obj).count(), 0
