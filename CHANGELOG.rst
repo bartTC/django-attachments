@@ -1,8 +1,17 @@
 Changelog:
 ==========
 
+v1.11 (2023-04-20)
+------------------
+
+- Return form errors as JSON from ``add_attachment()`` view
+  when the ``X-Return-Form-Errors`` request header is present.
+  Response code is 400 - BAD REQUEST because this is a client
+  error.
+
+
 v1.10 (2023-04-14)
--------------------
+------------------
 
 - Support custom form validators via ``AppConfig.attachment_validators``
 - Remove quotes from "attachment_list" (Aaron C. de Bruyn)
