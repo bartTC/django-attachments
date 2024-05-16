@@ -27,18 +27,13 @@ class AttachmentManager(models.Manager):
 
 
 @python_2_unicode_compatible
-class Attachment(models.Model):
+class BaseAttachment(models.Model):
+    """Abstract class to be overwritten"""
     objects = AttachmentManager()
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.CharField(db_index=True, max_length=64)
     content_object = GenericForeignKey("content_type", "object_id")
-    creator = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="created_attachments",
-        verbose_name=_("creator"),
-        on_delete=models.CASCADE,
-    )
     attachment_file = models.FileField(
         _("attachment"), upload_to=attachment_upload
     )
@@ -52,12 +47,10 @@ class Attachment(models.Model):
         permissions = (
             ("delete_foreign_attachments", _("Can delete foreign attachments")),
         )
+        abstract = True
 
     def __str__(self):
-        return _("{username} attached {filename}").format(
-            username=self.creator.get_username(),
-            filename=self.attachment_file.name,
-        )
+        return self.attachment_file.name
 
     @property
     def filename(self):
@@ -84,3 +77,19 @@ class Attachment(models.Model):
             os.makedirs(
                 os.path.dirname(self.attachment_file.path), exist_ok=True)
             os.rename(old_path, self.attachment_file.path)
+
+
+@python_2_unicode_compatible
+class Attachment(BaseAttachment):
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="created_attachments",
+        verbose_name=_("creator"),
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return _("{username} attached {filename}").format(
+            username=self.creator.get_username(),
+            filename=self.attachment_file.name,
+        )
