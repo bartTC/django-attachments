@@ -1,12 +1,11 @@
 from __future__ import unicode_literals
 
-import os
-
 from http import HTTPStatus
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -31,10 +30,10 @@ def add_url_for_obj(obj):
 def remove_file_from_disk(f):
     if getattr(
         settings, "DELETE_ATTACHMENTS_FROM_DISK", False
-    ) and os.path.exists(f.path):
+    ) and default_storage.exists(f.name):
         try:
-            os.remove(f.path)
-        except OSError:
+            default_storage.delete(f.name)
+        except Exception:
             pass
 
 

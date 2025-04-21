@@ -4,6 +4,7 @@ import mock
 
 from http import HTTPStatus
 from django.urls import reverse
+from django.core.files.storage import default_storage
 
 from ..models import Attachment
 from .base import BaseTestCase
@@ -217,7 +218,7 @@ class ViewTestCase(BaseTestCase):
         self._upload_testfile()
         att = Attachment.objects.first()
 
-        with mock.patch("attachments.views.os.remove") as _mock:
+        with mock.patch.object(default_storage, "delete") as _mock:
             _mock.side_effect = OSError("Test file does not exist")
             with self.settings(DELETE_ATTACHMENTS_FROM_DISK=True):
                 del_url = reverse(
