@@ -1,6 +1,23 @@
 Changelog:
 ==========
 
+v1.12 (2025-04-22)
+------------------
+
+- Make ``remove_file_from_disk()`` use Django's ``default_storage`` which
+  should make this function work not only with ``FileSystemStorage`` but also
+  with cloud providers like AWS S3 for example
+- Update test matrix
+  - add Django 5.1
+  - add Django 5.2
+  - remove Django 3.2
+  - remove Django 4.0
+  - remove Django 4.1
+  - add Python 3.12
+  - add Python 3.13
+  - use psycopg 3
+
+
 v1.11 (2023-04-20)
 ------------------
 
